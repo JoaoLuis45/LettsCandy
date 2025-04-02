@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LettsCandy.Paginas.ProdutosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:paginas="clr-namespace:LettsCandy.Paginas"
+    Title="Produtos">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="150"
+                SemanticProperties.Description="Logo LettsCandy"
+                Source="produtos.png" />
+            <Button
+                BackgroundColor="#FF0F10"
+                Clicked="NovoClicked"
+                FontAttributes="Bold"
+                HorizontalOptions="FillAndExpand"
+                Text="Novo Produto" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="Listagem de produtos"
+                TextColor="grey" />
+
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="Start"
+                    Text="Quantidade de Produtos:"
+                    TextColor="grey" />
+                <Label
+                    x:Name="LabelQtdProdutos"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="Start"
+                    TextColor="grey" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Estoque:"
+                    TextColor="grey" />
+                <Label
+                    x:Name="LabelEstoque"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    TextColor="grey" />
+            </StackLayout>
+
+            <CollectionView x:Name="ProdutosCollection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource FrameCardStyle}">
+                            <StackLayout
+                                Margin="0,0,0,10"
+                                Padding="10"
+                                Orientation="Horizontal">
+                                <Frame
+                                    Padding="0"
+                                    BorderColor="White"
+                                    CornerRadius="50"
+                                    HeightRequest="60"
+                                    WidthRequest="60">
+                                    <Image
+                                        Aspect="Fill"
+                                        HeightRequest="60"
+                                        SemanticProperties.Description="Foto produto"
+                                        Source="{Binding Foto}" />
+                                </Frame>
+                                <StackLayout
+                                    Margin="10,0,0,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="5">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding Nome}" />
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start"
+                                            Text="Quantidade:" />
+                                        <Label HorizontalOptions="Start" Text="{Binding Quantidade}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start"
+                                            Text="Preço: R$" />
+                                        <Label HorizontalOptions="Start" Text="{Binding Preco}" />
+                                    </StackLayout>
+                                    <Label
+                                        FontAttributes="Italic"
+                                        FontSize="13"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding Descricao}" />
+                                </StackLayout>
+                                <StackLayout Spacing="5" VerticalOptions="Center">
+                                    <Frame Padding="0" HorizontalOptions="Center" HasShadow="True">
+                                        <Button
+                                            BackgroundColor="White"
+                                            CornerRadius="10"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Clicked="AumentarQtd"
+                                            Text="+"
+                                            TextColor="red" />
+                                    </Frame>
+                                    <Frame Padding="0" HorizontalOptions="Center" HasShadow="True">
+                                        <Button
+                                            BackgroundColor="White"
+                                            CornerRadius="10"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Clicked="DiminuirQtd"
+                                            Text="-"
+                                            TextColor="red" />
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ProdutosPage}}, Path=NavigateToProdutosSalvarCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

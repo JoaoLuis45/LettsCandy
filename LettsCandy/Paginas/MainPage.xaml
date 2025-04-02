@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LettsCandy.Paginas.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:paginas="clr-namespace:LettsCandy.Paginas"
+    Title="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="HeightRequest" Value="150" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="185"
+                SemanticProperties.Description="Logo LettsCandy"
+                Source="lettscandy.png" />
+
+            <Grid ColumnSpacing="20" RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="produtos.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Produtos"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="vendas.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Vendas"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="clientes.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Clientes"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="novopedido.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Novo Pedido"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
