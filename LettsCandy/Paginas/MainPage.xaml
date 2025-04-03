@@ -21,7 +21,7 @@
 
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Padding="30,0" Spacing="25" Margin="0,0,0,30">
             <Image
                 Aspect="AspectFill"
                 HeightRequest="185"
@@ -30,6 +30,8 @@
 
             <Grid ColumnSpacing="20" RowSpacing="15">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -120,7 +122,73 @@
                             FontAttributes="Bold"
                             FontSize="Medium"
                             HorizontalOptions="Center"
-                            Text="Novo Pedido"
+                            Text="Encomenda"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="remessas.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Remessas"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="compras.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Compras"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="users.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Usuários"
                             TextColor="Black" />
                     </VerticalStackLayout>
                     <Frame.GestureRecognizers>
@@ -128,6 +196,28 @@
                     </Frame.GestureRecognizers>
                 </Frame>
 
+                <Frame
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Style="{StaticResource FrameCardStyle}">
+                    <VerticalStackLayout>
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            SemanticProperties.Description="Produtos"
+                            Source="relatorios.png" />
+                        <Label
+                            Margin="0,10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="Relatórios"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                    </Frame.GestureRecognizers>
+                </Frame>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
