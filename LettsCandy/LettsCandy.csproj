@@ -68,6 +68,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Paginas\ClientesSalvarPage.xaml.cs">
+	    <DependentUpon>ClientesSalvarPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\ClientesPage.xaml.cs">
+	    <DependentUpon>ClientesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\UsuarioSalvarPage.xaml.cs">
+	    <DependentUpon>UsuarioSalvarPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\UsuariosPage.xaml.cs">
+	    <DependentUpon>UsuariosPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Paginas\ProdutosSalvarPage.xaml.cs">
 	    <DependentUpon>ProdutosSalvarPage.xaml</DependentUpon>
 	  </Compile>
@@ -77,6 +89,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Paginas\ClientesSalvarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\ClientesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\UsuarioSalvarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\UsuariosPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Paginas\ProdutosSalvarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

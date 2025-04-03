@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="LettsCandy.Paginas.ProdutosSalvarPage"
+    x:Class="LettsCandy.Paginas.ClientesSalvarPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:paginas="clr-namespace:LettsCandy.Paginas"
-    Title="Salvar Produto">
+    Title="Salvar Cliente">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="FrameCardStyle" TargetType="Frame">
@@ -21,8 +21,8 @@
             <Image
                 Aspect="AspectFit"
                 HeightRequest="150"
-                SemanticProperties.Description="Salvar produto"
-                Source="produtodetalhe.png" />
+                SemanticProperties.Description="Salvar cliente"
+                Source="cliente.png" />
             <Frame Style="{StaticResource FrameCardStyle}">
                 <StackLayout Padding="20">
                     <Frame
@@ -42,55 +42,64 @@
                         Padding="0"
                         CornerRadius="2">
                         <Entry
-                            x:Name="QtdEntry"
+                            x:Name="TelefoneEntry"
                             BackgroundColor="LightCyan"
                             Keyboard="Numeric"
-                            Placeholder="Quantidade"
+                            Placeholder="Telefone"
                             PlaceholderColor="grey"
-                            Text="{Binding Quantidade}" />
+                            Text="{Binding Telefone}" />
                     </Frame>
                     <Frame
                         Margin="0,0,0,10"
                         Padding="0"
                         CornerRadius="2">
                         <Entry
-                            x:Name="PrecoEntry"
+                            x:Name="EnderecoEntry"
+                            BackgroundColor="LightCyan"
+                            Placeholder="Endereço"
+                            PlaceholderColor="grey"
+                            Text="{Binding Endereco}"
+                            TextColor="Black" />
+                    </Frame>
+                    <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Entry
+                            x:Name="NumeroCasaEntry"
                             BackgroundColor="LightCyan"
                             Keyboard="Numeric"
-                            Placeholder="Preço"
+                            Placeholder="Número da casa"
                             PlaceholderColor="grey"
-                            Text="{Binding Preco}" />
+                            Text="{Binding NumeroCasa}" />
                     </Frame>
+                    <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Entry
+                            x:Name="CidadeEntry"
+                            BackgroundColor="LightCyan"
+                            Placeholder="Cidade"
+                            PlaceholderColor="grey"
+                            Text="{Binding Cidade}"
+                            TextColor="Black" />
+                    </Frame>
+
+                    <Picker x:Name="SituacaoClientePicker" SelectedItem="{Binding SituacaoCliente}">
+                        <Picker.ItemsSource />
+                    </Picker>
+                    
                     <Frame Padding="0" CornerRadius="2">
                         <Editor
-                            x:Name="DescricaoEditor"
+                            x:Name="ObsEditor"
                             AutoSize="TextChanges"
                             BackgroundColor="LightCyan"
                             HeightRequest="100"
-                            Placeholder="Descrição"
+                            Placeholder="Observações"
                             PlaceholderColor="grey"
-                            Text="{Binding Descricao}" />
+                            Text="{Binding Obs}" />
                     </Frame>
-                    <Frame
-                        x:Name="FotosFrame"
-                        Margin="0,15,0,0"
-                        Padding="0"
-                        CornerRadius="10">
-                        <Image
-                            x:Name="SelectedImage"
-                            Aspect="AspectFill"
-                            HeightRequest="150"
-                            Source="emptyproduct.png" />
-
-                    </Frame>
-                    <Button
-                        Margin="0,10,0,0"
-                        BackgroundColor="Gold"
-                        Clicked="AnexarClicked"
-                        FontAttributes="Bold"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Anexar Foto"
-                        TextColor="Black" />
                     <Button
                         x:Name="ExcluirBtn"
                         Margin="0,10,0,0"

@@ -25,7 +25,11 @@ namespace LettsCandy.Paginas
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            CarregarImagens();
+            if (Produto.Id == 0)
+            {
+                return;
+            }
+            else CarregarImagens();
             await Task.Delay(100);
             NomeEntry.Focus();
         }
@@ -72,51 +76,56 @@ namespace LettsCandy.Paginas
 
         }
 
-        private async void CarregarImagens()
+        private async void ExcluirClicked(object sender, EventArgs e)
         {
-            var fotos = await _anexoServico.Query().Where(a => a.ProdutoId == Produto.Id && !string.IsNullOrEmpty(a.Arquivo) && a.ProdutoId != 0).ToListAsync();
-            if (fotos.Count() > 0)
+            if (Produto.Id == 0)
             {
-                SelectedImage.Source = fotos[fotos.Count - 1].Arquivo;
+                await DisplayAlert("Erro", "Não é possível excluir um produto que não existe", "Ok");
                 return;
             }
+            await _produtoServico.DeletarAsync(Produto);
+            await Navigation.PopAsync();
+        }
+
+        private async void CarregarImagens()
+        {
+            if(Produto.Foto != "emptyproduct.png")
+                SelectedImage.Source = Produto.Foto;
+
         }
 
         private async void AnexarClicked(object sender, EventArgs e)
         {
             try
             {
-                if (MediaPicker.Default.IsCaptureSupported) { 
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
                     // Abre a galeria para selecionar uma foto
                     var photo = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
-                {
-                    Title = "Selecione uma foto"
-                });
+                    {
+                        Title = "Selecione uma foto"
+                    });
                     if (photo != null)
                     {
-                     using Stream stream = await photo.OpenReadAsync();
+                        using Stream stream = await photo.OpenReadAsync();
 
-                    //define o diretorio e o nome do arquivo onde a foto será salva
-                     string directory = FileSystem.AppDataDirectory;
-                     string filename = Path.Combine(directory, $"{DateTime.Now.ToString("ddMMyyyy_hhmmss")}.jpg");
+                        //define o diretorio e o nome do arquivo onde a foto será salva
+                        string directory = FileSystem.AppDataDirectory;
+                        string filename = Path.Combine(directory, $"{DateTime.Now.ToString("ddMMyyyy_hhmmss")}.jpg");
 
 
-                     //salva a foto no diretorio definido
-                     using FileStream fileStream = new FileStream(filename, FileMode.Create, FileAccess.Write);
-                     await stream.CopyToAsync(fileStream);
+                        //salva a foto no diretorio definido
+                        using FileStream fileStream = new FileStream(filename, FileMode.Create, FileAccess.Write);
+                        await stream.CopyToAsync(fileStream);
 
-                     await _anexoServico.IncluirAsync(new Anexo
-                     {
-                         Arquivo = filename,
-                        ProdutoId = Produto.Id,
-                     });
 
-                     Produto.Foto = filename;
-                     await _produtoServico.AlterarAsync(Produto);
+                        Produto.Foto = filename;
+                        await _produtoServico.AlterarAsync(Produto);
 
 
                         CarregarImagens();
-                }
+
+                    }
                 }
                 else
                 {
@@ -133,9 +142,10 @@ namespace LettsCandy.Paginas
             }
             catch (Exception ex)
             {
-                // Trata erros (ex.: permissões negadas)
+           
                 await DisplayAlert("Erro", $"Ocorreu um erro: {ex.Message}", "OK");
             }
         }
+
     }
 }

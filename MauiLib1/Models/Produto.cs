@@ -4,10 +4,6 @@ using SQLite;
 namespace MauiLib.Core.Models;
 
 public class Produto{
-
-    //private DatabaseServicos<Anexo> _anexoServico;
-
-
     public Produto(){
         this.DataAtualizacao = DateTime.Now;
         this.DataCriacao = DateTime.Now;
@@ -15,7 +11,6 @@ public class Produto{
         if(this.Foto == null)
             this.Foto = "emptyproduct.png";
 
-        //_anexoServico = new DatabaseServicos<Anexo>(Db.DB_PATH);
     }
 
     [PrimaryKey, AutoIncrement]
