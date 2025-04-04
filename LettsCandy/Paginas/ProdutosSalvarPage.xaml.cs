@@ -83,6 +83,13 @@ namespace LettsCandy.Paginas
                 await DisplayAlert("Erro", "Não é possível excluir um produto que não existe", "Ok");
                 return;
             }
+
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir este produto?", "Sim", "Não");
+            if (!confirm)
+            {
+                return;
+            }
+
             await _produtoServico.DeletarAsync(Produto);
             await Navigation.PopAsync();
         }

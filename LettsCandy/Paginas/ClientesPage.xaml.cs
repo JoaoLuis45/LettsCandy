@@ -37,7 +37,7 @@ namespace LettsCandy.Paginas
             var botao = sender as Button;
             if (sender != null)
             {
-                await Navigation.PushAsync(new ClientesSalvarPage(new Cliente{ }));
+                await Navigation.PushAsync(new ClientesSalvarPage(new Cliente{ SituacaoCliente = MauiLib.Core.Enums.SituacaoCliente.EmDia }));
             }
 
         }

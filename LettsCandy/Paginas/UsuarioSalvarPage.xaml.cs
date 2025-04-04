@@ -58,6 +58,13 @@ namespace LettsCandy.Paginas
                 await DisplayAlert("Erro", "Não é possível excluir um usuário que não existe", "Ok");
                 return;
             }
+
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir este usuário?", "Sim", "Não");
+            if (!confirm)
+            {
+                return;
+            }
+
             await _usuariosServico.DeletarAsync(Usuario);
             await Navigation.PopAsync();
         }

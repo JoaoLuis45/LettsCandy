@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LettsCandy.Paginas.ItensSalvarPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:paginas="clr-namespace:LettsCandy.Paginas"
+    Title="Salvar Item">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="150"
+                SemanticProperties.Description="Salvar Item"
+                Source="item.png" />
+            <Frame Style="{StaticResource FrameCardStyle}">
+                <StackLayout Padding="20">
+                    <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Entry
+                            x:Name="NomeEntry"
+                            BackgroundColor="LightCyan"
+                            Placeholder="Nome"
+                            PlaceholderColor="grey"
+                            Text="{Binding Nome}"
+                            TextColor="Black" />
+                    </Frame>
+                    <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Entry
+                            x:Name="QtdEntry"
+                            BackgroundColor="LightCyan"
+                            Keyboard="Numeric"
+                            Placeholder="Quantidade"
+                            PlaceholderColor="grey"
+                            Text="{Binding Qtd}" />
+                    </Frame>
+                    <Button
+                        x:Name="ExcluirBtn"
+                        Margin="0,10,0,0"
+                        BackgroundColor="#FFFFFF"
+                        BorderColor="#FF0F10"
+                        BorderWidth="1"
+                        Clicked="ExcluirClicked"
+                        FontAttributes="Bold"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Excluir"
+                        TextColor="#FF0F10" />
+                    <Button
+                        Margin="0,10,0,0"
+                        BackgroundColor="#FF0F10"
+                        Clicked="SalvarClicked"
+                        FontAttributes="Bold"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Salvar" />
+                </StackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

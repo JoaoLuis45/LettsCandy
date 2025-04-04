@@ -46,6 +46,8 @@
                             BackgroundColor="LightCyan"
                             Keyboard="Numeric"
                             Placeholder="Telefone"
+                            Unfocused="TelefoneEntry_Unfocused"
+                            TextChanged="TelefoneEntry_TextChanged"
                             PlaceholderColor="grey"
                             Text="{Binding Telefone}" />
                     </Frame>
@@ -85,11 +87,18 @@
                             Text="{Binding Cidade}"
                             TextColor="Black" />
                     </Frame>
-
-                    <Picker x:Name="SituacaoClientePicker" SelectedItem="{Binding SituacaoCliente}">
-                        <Picker.ItemsSource />
-                    </Picker>
-                    
+                    <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Picker
+                            x:Name="SituacaoClientePicker"
+                            BackgroundColor="LightCyan"
+                            SelectedItem="{Binding SituacaoCliente}"
+                            TextColor="Black">
+                            <Picker.ItemsSource />
+                        </Picker>
+                    </Frame>
                     <Frame Padding="0" CornerRadius="2">
                         <Editor
                             x:Name="ObsEditor"

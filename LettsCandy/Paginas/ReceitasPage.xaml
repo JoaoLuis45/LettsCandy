@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="LettsCandy.Paginas.ClientesPage"
+    x:Class="LettsCandy.Paginas.ReceitasPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:paginas="clr-namespace:LettsCandy.Paginas"
-    Title="Clientes">
+    Title="Receitas">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="FrameCardStyle" TargetType="Frame">
@@ -23,18 +23,18 @@
                 Aspect="AspectFit"
                 HeightRequest="150"
                 SemanticProperties.Description="clientes"
-                Source="clientes.png" />
+                Source="receita.png" />
             <Button
                 BackgroundColor="#FF0F10"
                 Clicked="NovoClicked"
                 FontAttributes="Bold"
                 HorizontalOptions="FillAndExpand"
-                Text="Novo Cliente" />
+                Text="Nova Receita" />
             <Label
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Start"
-                Text="Listagem de clientes"
+                Text="Listagem de receitas"
                 TextColor="grey" />
 
             <StackLayout
@@ -45,17 +45,17 @@
                     FontAttributes="Bold"
                     FontSize="12"
                     HorizontalOptions="Start"
-                    Text="Quantidade de Clientes:"
+                    Text="Quantidade de receitas:"
                     TextColor="grey" />
                 <Label
-                    x:Name="LabelQtdClientes"
+                    x:Name="LabelQtdReceitas"
                     FontAttributes="Bold"
                     FontSize="12"
                     HorizontalOptions="Start"
                     TextColor="grey" />
             </StackLayout>
 
-            <CollectionView x:Name="ClientesCollection">
+            <CollectionView x:Name="ReceitasCollection">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Style="{StaticResource FrameCardStyle}">
@@ -71,46 +71,17 @@
                                         FontAttributes="Bold"
                                         FontSize="Medium"
                                         HorizontalOptions="Start"
-                                        Text="{Binding Nome}" />
+                                        Text="{Binding Descricao}" />
                                     <Label HorizontalOptions="Start" Text="{Binding Telefone}" />
                                     <Label
                                         FontAttributes="Italic"
                                         FontSize="13"
                                         HorizontalOptions="Start"
-                                        Text="{Binding Obs}" />
-                                </StackLayout>
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                    Spacing="5"
-                                    VerticalOptions="Center">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="13"
-                                        Text="Situação"
-                                        TextColor="LightGrey" />
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="13"
-                                        Text="{Binding SituacaoCliente}">
-                                        <Label.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding SituacaoCliente}"
-                                                TargetType="Label"
-                                                Value="2">
-                                                <Setter Property="TextColor" Value="#FF0F10" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding SituacaoCliente}"
-                                                TargetType="Label"
-                                                Value="1">
-                                                <Setter Property="TextColor" Value="LimeGreen" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
+                                        Text="{Binding Produto.Nome}"/>
                                 </StackLayout>
                             </StackLayout>
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ClientesPage}}, Path=NavigateToClientesSalvarCommand}" CommandParameter="{Binding .}" />
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ReceitasPage}}, Path=NavigateToReceitasSalvarCommand}" CommandParameter="{Binding .}" />
                             </Frame.GestureRecognizers>
                         </Frame>
                     </DataTemplate>

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LettsCandy.Paginas.ItensPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:paginas="clr-namespace:LettsCandy.Paginas"
+    Title="Itens">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="150"
+                SemanticProperties.Description="item"
+                Source="item.png" />
+            <Button
+                BackgroundColor="#FF0F10"
+                Clicked="NovoClicked"
+                FontAttributes="Bold"
+                HorizontalOptions="FillAndExpand"
+                Text="Novo Item" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="Listagem de itens"
+                TextColor="grey" />
+
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="Start"
+                    Text="Quantidade de itens:"
+                    TextColor="grey" />
+                <Label
+                    x:Name="LabelQtdItens"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="Start"
+                    TextColor="grey" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Estoque de itens:"
+                    TextColor="grey" />
+                <Label
+                    x:Name="LabelTotalItens"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    TextColor="grey" />
+            </StackLayout>
+
+            <CollectionView x:Name="ItensCollection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource FrameCardStyle}">
+                            <StackLayout
+                                Margin="0,0,0,10"
+                                Padding="10"
+                                Orientation="Horizontal">
+                                <StackLayout
+                                    Margin="10,0,0,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="5"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="21"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding Nome}" />
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start"
+                                            Text="Quantidade:" />
+                                        <Label HorizontalOptions="Start" Text="{Binding Qtd}" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Spacing="5" VerticalOptions="Center">
+                                    <Frame
+                                        Padding="0"
+                                        HasShadow="True"
+                                        HorizontalOptions="Center">
+                                        <Button
+                                            BackgroundColor="White"
+                                            Clicked="AumentarQtd"
+                                            CornerRadius="10"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text="+"
+                                            TextColor="red" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        HasShadow="True"
+                                        HorizontalOptions="Center">
+                                        <Button
+                                            BackgroundColor="White"
+                                            Clicked="DiminuirQtd"
+                                            CornerRadius="10"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text="-"
+                                            TextColor="red" />
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ItensPage}}, Path=NavigateToItensSalvarCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -68,11 +68,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Paginas\ReceitasPage.xaml.cs">
+	    <DependentUpon>ReceitasPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\ReceitasSalvarPage.xaml.cs">
+	    <DependentUpon>ReceitasSalvarPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Paginas\ClientesSalvarPage.xaml.cs">
 	    <DependentUpon>ClientesSalvarPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Paginas\ClientesPage.xaml.cs">
 	    <DependentUpon>ClientesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\ItensSalvarPage.xaml.cs">
+	    <DependentUpon>ItensSalvarPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\ItensPage.xaml.cs">
+	    <DependentUpon>ItensPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Paginas\UsuarioSalvarPage.xaml.cs">
 	    <DependentUpon>UsuarioSalvarPage.xaml</DependentUpon>
@@ -89,10 +101,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Paginas\ReceitasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\ReceitasSalvarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Paginas\ClientesSalvarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Paginas\ClientesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\ItensSalvarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\ItensPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Paginas\UsuarioSalvarPage.xaml">

@@ -29,5 +29,13 @@ namespace LettsCandy.Paginas
         {
             await Navigation.PushAsync(new ClientesPage());
         }
+        private async void NavigateToItems(object sender, TappedEventArgs e)
+        {
+            await Navigation.PushAsync(new ItensPage());
+        }
+        private async void NavigateToReceipts(object sender, TappedEventArgs e)
+        {
+            await Navigation.PushAsync(new ReceitasPage());
+        }
     }
 }
