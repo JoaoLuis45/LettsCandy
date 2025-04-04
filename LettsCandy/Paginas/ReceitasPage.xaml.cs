@@ -10,12 +10,14 @@ namespace LettsCandy.Paginas
         public Receita Receita { get; set; }
 
         private DatabaseServicos<Receita> _receitasServico;
+        private DatabaseServicos<Produto> _produtosServico;
         public ICommand NavigateToReceitasSalvarCommand { get; private set; }
         
         public ReceitasPage()
         {
             InitializeComponent();
             _receitasServico = new DatabaseServicos<Receita>(Db.DB_PATH);
+            _produtosServico = new DatabaseServicos<Produto>(Db.DB_PATH);
             NavigateToReceitasSalvarCommand = new Command<Receita>(async (receita) => await NavigateToReceiptSalvar(receita));
         }
         protected override void OnAppearing()

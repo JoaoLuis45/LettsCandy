@@ -12,8 +12,8 @@ public class Receita{
     [PrimaryKey, AutoIncrement]
     public int Id {get;set;}
     public int ProdutoId {get;set;}
-    public List<int> ItemId {get;set;}
     public string Descricao {get;set;}
+    public string ProdutoNome { get;set;}
     public DateTime DataCriacao {get;set;}
     public DateTime DataAtualizacao {get;set;}
     [Ignore]

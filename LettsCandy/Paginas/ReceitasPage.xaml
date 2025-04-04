@@ -72,12 +72,11 @@
                                         FontSize="Medium"
                                         HorizontalOptions="Start"
                                         Text="{Binding Descricao}" />
-                                    <Label HorizontalOptions="Start" Text="{Binding Telefone}" />
                                     <Label
                                         FontAttributes="Italic"
                                         FontSize="13"
                                         HorizontalOptions="Start"
-                                        Text="{Binding Produto.Nome}"/>
+                                        Text="{Binding ProdutoNome}" />
                                 </StackLayout>
                             </StackLayout>
                             <Frame.GestureRecognizers>

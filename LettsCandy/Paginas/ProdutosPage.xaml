@@ -125,23 +125,29 @@
                                         Text="{Binding Descricao}" />
                                 </StackLayout>
                                 <StackLayout Spacing="5" VerticalOptions="Center">
-                                    <Frame Padding="0" HorizontalOptions="Center" HasShadow="True">
+                                    <Frame
+                                        Padding="0"
+                                        HasShadow="True"
+                                        HorizontalOptions="Center">
                                         <Button
                                             BackgroundColor="White"
+                                            Clicked="AumentarQtd"
                                             CornerRadius="10"
                                             FontAttributes="Bold"
                                             FontSize="18"
-                                            Clicked="AumentarQtd"
                                             Text="+"
                                             TextColor="red" />
                                     </Frame>
-                                    <Frame Padding="0" HorizontalOptions="Center" HasShadow="True">
+                                    <Frame
+                                        Padding="0"
+                                        HasShadow="True"
+                                        HorizontalOptions="Center">
                                         <Button
                                             BackgroundColor="White"
+                                            Clicked="DiminuirQtd"
                                             CornerRadius="10"
                                             FontAttributes="Bold"
                                             FontSize="18"
-                                            Clicked="DiminuirQtd"
                                             Text="-"
                                             TextColor="red" />
                                     </Frame>
