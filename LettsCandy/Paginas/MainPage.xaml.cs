@@ -63,5 +63,10 @@ namespace LettsCandy.Paginas
             if (await VerificaQtdItems()) return;
             await Navigation.PushAsync(new ReceitasPage());
         }
+        private async void NavigateToBoughts(object sender, TappedEventArgs e)
+        {
+            if (await VerificaQtdItems()) return;
+            await Navigation.PushAsync(new ComprasPage());
+        }
     }
 }

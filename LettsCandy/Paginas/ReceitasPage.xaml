@@ -78,6 +78,23 @@
                                         HorizontalOptions="Start"
                                         Text="{Binding ProdutoNome}" />
                                 </StackLayout>
+                                <StackLayout
+                                    Margin="0,0,0,10"
+                                    Padding="10"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        HorizontalOptions="Start"
+                                        Text="Produtos Resultantes:"
+                                        TextColor="grey" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding QtdProdutosResultantes}" />
+                                </StackLayout>
                             </StackLayout>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ReceitasPage}}, Path=NavigateToReceitasSalvarCommand}" CommandParameter="{Binding .}" />

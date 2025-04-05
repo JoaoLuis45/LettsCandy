@@ -12,6 +12,7 @@ public class CompraItem{
     public int Id {get;set;}
     public int ItemId {get;set;}
     public int CompraId {get;set;}
+    public double ValorItem {get;set;}
     public string NomeItem {get;set;}
     public int QtdItem {get;set;}
 }

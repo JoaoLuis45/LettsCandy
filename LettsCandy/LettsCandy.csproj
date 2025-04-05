@@ -68,6 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Paginas\ComprasPage.xaml.cs">
+	    <DependentUpon>ComprasPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Paginas\ReceitasPage.xaml.cs">
 	    <DependentUpon>ReceitasPage.xaml</DependentUpon>
 	  </Compile>
@@ -104,6 +107,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Paginas\ComprasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Paginas\ReceitasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

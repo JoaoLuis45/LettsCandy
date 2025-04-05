@@ -24,7 +24,7 @@ namespace LettsCandy.Paginas
             Compra = compra;
             BindingContext = compra;
 
-            
+
         }
 
         protected async override void OnAppearing()
@@ -52,6 +52,9 @@ namespace LettsCandy.Paginas
             {
                 await _comprasServico.AlterarAsync(Compra);
             }
+
+            CarregarCompraItems();
+
             await Navigation.PopAsync();
         }
 
@@ -75,7 +78,7 @@ namespace LettsCandy.Paginas
 
         private async void AdicionarItemClicked(object sender, EventArgs e)
         {
-            if(Compra.Id == 0)
+            if (Compra.Id == 0)
             {
                 await DisplayAlert("Informação", "Salve a compra primeiro para adicionar itens.", "Ok");
                 return;
@@ -105,7 +108,7 @@ namespace LettsCandy.Paginas
                         ItemId = item.Id,
                         NomeItem = item.Nome,
                     });
-                    CarregarCompraItems();   
+                    CarregarCompraItems();
                 }
             }
         }
@@ -115,6 +118,13 @@ namespace LettsCandy.Paginas
             var compraItems = await _compraItemsServico.TodosAsync();
             var itensRelacionados = compraItems
                 .Where(ri => ri.CompraId == Compra.Id).ToList();
+            var valor = 0.0;
+            foreach (var item in itensRelacionados)
+            {
+                valor += valor + (item.ValorItem * item.QtdItem);
+            }
+            Compra.Valor = valor;
+            await _comprasServico.AlterarAsync(Compra);
             ItemsCollection.ItemsSource = itensRelacionados;
         }
 
@@ -159,6 +169,24 @@ namespace LettsCandy.Paginas
                     compraItem.QtdItem = int.Parse(entry.Text);
                     _compraItemsServico.AlterarAsync(compraItem);
                     CarregarCompraItems();
+                }
+            }
+        }
+
+        private async void ValorItemEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            var entry = sender as Entry;
+            if (entry != null)
+            {
+                var compraItem = entry.BindingContext as CompraItem;
+                if (compraItem != null)
+                {
+                    if (double.TryParse(entry.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out double valor))
+                    {
+                        compraItem.ValorItem = valor;
+                        await _compraItemsServico.AlterarAsync(compraItem);
+                        CarregarCompraItems();
+                    }
                 }
             }
         }

@@ -56,6 +56,20 @@
                     </Frame>
 
                     <Frame
+                        Margin="0,0,0,10"
+                        Padding="0"
+                        CornerRadius="2">
+                        <Entry
+                            x:Name="QtdProdutosResultantesEntry"
+                            BackgroundColor="LightCyan"
+                            Keyboard="Numeric"
+                            Placeholder="Produtos resultantes"
+                            PlaceholderColor="grey"
+                            Text="{Binding QtdProdutosResultantes}"
+                            TextColor="Black" />
+                    </Frame>
+
+                    <Frame
                         x:Name="ProdutoFrame"
                         Margin="0,0,0,20"
                         Style="{StaticResource FrameCardStyle}">

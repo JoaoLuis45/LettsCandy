@@ -12,6 +12,7 @@ public class Receita{
     [PrimaryKey, AutoIncrement]
     public int Id {get;set;}
     public int ProdutoId {get;set;}
+    public int QtdProdutosResultantes {get;set;}
     public string Descricao {get;set;}
     public string ProdutoNome { get;set;}
     public DateTime DataCriacao {get;set;}

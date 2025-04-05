@@ -55,6 +55,13 @@ namespace LettsCandy.Paginas
                 return;
             }
 
+            if (string.IsNullOrEmpty(QtdProdutosResultantesEntry.Text))
+            {
+                await DisplayAlert("Erro", "A quantidade de produtos resultantes é obrigatória", "Ok");
+                QtdProdutosResultantesEntry.Focus();
+                return;
+            }
+
             if (ProdutosPicker.SelectedItem != null)
                 Receita.Produto = (Produto)ProdutosPicker.SelectedItem;
             else
@@ -67,6 +74,7 @@ namespace LettsCandy.Paginas
             Receita.Descricao = DescricaoEntry.Text;
             Receita.ProdutoNome = Receita.Produto.Nome;
             Receita.ProdutoId = Receita.Produto.Id;
+            Receita.QtdProdutosResultantes = int.Parse(QtdProdutosResultantesEntry.Text);
 
             if (Receita.Id == 0)
                 await _receitasServico.IncluirAsync(Receita);

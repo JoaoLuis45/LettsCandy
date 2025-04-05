@@ -51,75 +51,107 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Frame Margin="0,10,0,0" Style="{StaticResource FrameCardStyle}">
-                                            <StackLayout Padding="10" Orientation="Horizontal">
-                                                <StackLayout
-                                                    Margin="10,0,0,0"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    Spacing="5">
-                                                    <Label
-                                                        FontAttributes="Bold"
-                                                        FontSize="16"
-                                                        HorizontalOptions="Start"
-                                                        Text="{Binding NomeItem}" />
+                                            <StackLayout Padding="10">
+                                                <StackLayout Padding="10" Orientation="Horizontal">
+                                                    <StackLayout
+                                                        Margin="10,0,0,0"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        Spacing="5">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="16"
+                                                            HorizontalOptions="Start"
+                                                            Text="{Binding NomeItem}" />
+                                                    </StackLayout>
+                                                    <StackLayout
+                                                        Margin="10,0,0,0"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        Orientation="Horizontal"
+                                                        Spacing="5">
+                                                        <Frame
+                                                            Padding="0"
+                                                            HasShadow="True"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="Center"
+                                                            WidthRequest="30">
+                                                            <Button
+                                                                Padding="0"
+                                                                BackgroundColor="White"
+                                                                Clicked="DiminuirQtd"
+                                                                CornerRadius="10"
+                                                                FontAttributes="Bold"
+                                                                FontSize="18"
+                                                                HorizontalOptions="Center"
+                                                                Text="-"
+                                                                TextColor="red"
+                                                                VerticalOptions="Center" />
+                                                        </Frame>
+
+                                                        <Border
+                                                            HeightRequest="30"
+                                                            Stroke="Grey"
+                                                            StrokeThickness="1"
+                                                            WidthRequest="30">
+                                                            <Entry
+                                                                Margin="0"
+                                                                BackgroundColor="White"
+                                                                FontSize="14"
+                                                                HeightRequest="40"
+                                                                HorizontalTextAlignment="Center"
+                                                                Keyboard="Numeric"
+                                                                Text="{Binding QtdItem}"
+                                                                TextColor="Black"
+                                                                Unfocused="Entry_Unfocused" />
+                                                        </Border>
+
+                                                        <Frame
+                                                            Padding="0"
+                                                            HasShadow="True"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="Center"
+                                                            WidthRequest="30">
+                                                            <Button
+                                                                Padding="0"
+                                                                BackgroundColor="White"
+                                                                Clicked="AumentarQtd"
+                                                                CornerRadius="10"
+                                                                FontAttributes="Bold"
+                                                                FontSize="18"
+                                                                HorizontalOptions="Center"
+                                                                Text="+"
+                                                                TextColor="red"
+                                                                VerticalOptions="Center" />
+                                                        </Frame>
+                                                    </StackLayout>
                                                 </StackLayout>
                                                 <StackLayout
                                                     Margin="10,0,0,0"
                                                     HorizontalOptions="FillAndExpand"
                                                     Orientation="Horizontal"
                                                     Spacing="5">
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        FontSize="18"
+                                                        VerticalOptions="Center"
+                                                        HorizontalOptions="Start"
+                                                        Text="Valor do item:"
+                                                        TextColor="grey" />
                                                     <Frame
+                                                        Margin="0,5,0,10"
                                                         Padding="0"
-                                                        HasShadow="True"
-                                                        HeightRequest="30"
-                                                        HorizontalOptions="Center"
-                                                        WidthRequest="30">
-                                                        <Button
-                                                            BackgroundColor="White"
-                                                            Clicked="DiminuirQtd"
-                                                            CornerRadius="10"
-                                                            FontAttributes="Bold"
-                                                            FontSize="18"
-                                                            HorizontalOptions="Center"
-                                                            Text="-"
-                                                            Padding="0"
-                                                            TextColor="red"
-                                                            VerticalOptions="Center" />
-                                                    </Frame>
-
-                                                    <Border
-                                                        Stroke="Grey"
-                                                        StrokeThickness="1"
-                                                        HeightRequest="30"
-                                                        WidthRequest="30">
+                                                        HorizontalOptions="FillAndExpand"
+                                                        CornerRadius="2">
                                                         <Entry
-                                                            BackgroundColor="White"
+                                                            x:Name="ValorItemEntry"
+                                                            BackgroundColor="LightCyan"
                                                             Keyboard="Numeric"
-                                                            HorizontalTextAlignment="Center"
-                                                            Text="{Binding QtdItem}"
-                                                            FontSize="14"
-                                                            Unfocused="Entry_Unfocused"
+                                                            Placeholder="Nome"
+                                                            HeightRequest="35"
                                                             Margin="0"
-                                                            HeightRequest="40"
-                                                            TextColor="Black" />
-                                                    </Border>
-
-                                                    <Frame
-                                                        Padding="0"
-                                                        HasShadow="True"
-                                                        HeightRequest="30"
-                                                        HorizontalOptions="Center"
-                                                        WidthRequest="30">
-                                                        <Button
-                                                            BackgroundColor="White"
-                                                            Clicked="AumentarQtd"
-                                                            CornerRadius="10"
-                                                            FontAttributes="Bold"
-                                                            FontSize="18"
-                                                            HorizontalOptions="Center"
-                                                            VerticalOptions="Center"
-                                                            Text="+"
-                                                            TextColor="red"
-                                                            Padding="0"/>
+                                                            PlaceholderColor="grey"
+                                                            Text="{Binding ValorItem}"
+                                                            TextColor="Black"
+                                                            Unfocused="ValorItemEntry_Unfocused" />
                                                     </Frame>
                                                 </StackLayout>
                                             </StackLayout>

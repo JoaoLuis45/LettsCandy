@@ -174,7 +174,7 @@
                             TextColor="Black" />
                     </VerticalStackLayout>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                        <TapGestureRecognizer Tapped="NavigateToBoughts" />
                     </Frame.GestureRecognizers>
                 </Frame>
                 <Frame
