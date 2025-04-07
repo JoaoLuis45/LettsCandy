@@ -17,47 +17,69 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <RefreshView RefreshColor="red"
-                 Command="{Binding RefreshCommand}"
-                 IsRefreshing="{Binding IsRefreshing}">
+    <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy}"
+        RefreshColor="red">
         <ScrollView>
-            <VerticalStackLayout 
-            
-            Padding="30,0" Spacing="25">
+            <VerticalStackLayout Padding="30,0" Spacing="25">
                 <Image
-                Aspect="AspectFit"
-                HeightRequest="150"
-                SemanticProperties.Description="compras"
-                Source="compras.png" />
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    SemanticProperties.Description="compras"
+                    Source="compras.png" />
                 <Button
-                BackgroundColor="#FF0F10"
-                Clicked="NovoClicked"
-                FontAttributes="Bold"
-                HorizontalOptions="FillAndExpand"
-                Text="Nova Compra" />
+                    BackgroundColor="#FF0F10"
+                    Clicked="NovoClicked"
+                    FontAttributes="Bold"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Nova Compra" />
+
+                <Frame BackgroundColor="white" BorderColor="#FF0F10" HasShadow="True">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="Center"
+                            Text="Valor total de compras"
+                            TextColor="#FF0F10"
+                            VerticalOptions="Center" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label
+                                x:Name="LabelValorTotalCompras"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="R$:"
+                                TextColor="#FF0F10"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
                 <Label
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalOptions="Start"
-                Text="Listagem de compras"
-                TextColor="grey" />
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    Text="Listagem de compras"
+                    TextColor="grey" />
 
                 <StackLayout
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                Spacing="5">
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="5">
                     <Label
-                    FontAttributes="Bold"
-                    FontSize="12"
-                    HorizontalOptions="Start"
-                    Text="Quantidade de Compras:"
-                    TextColor="grey" />
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        Text="Quantidade de Compras:"
+                        TextColor="grey" />
                     <Label
-                    x:Name="LabelQtdCompras"
-                    FontAttributes="Bold"
-                    FontSize="12"
-                    HorizontalOptions="Start"
-                    TextColor="grey" />
+                        x:Name="LabelQtdCompras"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        TextColor="grey" />
                 </StackLayout>
 
                 <CollectionView x:Name="ComprasCollection">
@@ -65,60 +87,60 @@
                         <DataTemplate>
                             <Frame Style="{StaticResource FrameCardStyle}">
                                 <StackLayout
-                                Margin="0,0,0,10"
-                                Padding="10"
-                                Orientation="Horizontal">
+                                    Margin="0,0,0,10"
+                                    Padding="10"
+                                    Orientation="Horizontal">
                                     <StackLayout
-                                    Margin="10,0,0,0"
-                                    HorizontalOptions="FillAndExpand"
-                                    Spacing="5">
+                                        Margin="10,0,0,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Spacing="5">
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="Medium"
-                                        HorizontalOptions="Start"
-                                        Text="{Binding Descricao}" />
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Descricao}" />
                                         <StackLayout Orientation="Horizontal" Spacing="2">
                                             <Label
-                                            FontAttributes="Bold"
-                                            FontSize="14"
-                                            HorizontalOptions="Start"
-                                            Text="R$" />
+                                                FontAttributes="Bold"
+                                                FontSize="14"
+                                                HorizontalOptions="Start"
+                                                Text="R$" />
                                             <Label
-                                            FontAttributes="Bold"
-                                            FontSize="14"
-                                            HorizontalOptions="Start"
-                                            Text="{Binding Valor}" />
+                                                FontAttributes="Bold"
+                                                FontSize="14"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding Valor}" />
                                         </StackLayout>
                                         <Label
-                                        FontAttributes="Italic"
-                                        FontSize="13"
-                                        HorizontalOptions="Start"
-                                        Text="{Binding DataCompra}" />
+                                            FontAttributes="Italic"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding DataCompra}" />
                                     </StackLayout>
                                     <StackLayout
-                                    Orientation="Horizontal"
-                                    Spacing="5"
-                                    VerticalOptions="Center">
+                                        Orientation="Horizontal"
+                                        Spacing="5"
+                                        VerticalOptions="Center">
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="13"
-                                        Text="Situação"
-                                        TextColor="LightGrey" />
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            Text="Situação"
+                                            TextColor="LightGrey" />
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="13"
-                                        Text="{Binding SituacaoCompra}">
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            Text="{Binding SituacaoCompra}">
                                             <Label.Triggers>
                                                 <DataTrigger
-                                                Binding="{Binding SituacaoCompra}"
-                                                TargetType="Label"
-                                                Value="1">
+                                                    Binding="{Binding SituacaoCompra}"
+                                                    TargetType="Label"
+                                                    Value="1">
                                                     <Setter Property="TextColor" Value="#FF0F10" />
                                                 </DataTrigger>
                                                 <DataTrigger
-                                                Binding="{Binding SituacaoCompra}"
-                                                TargetType="Label"
-                                                Value="2">
+                                                    Binding="{Binding SituacaoCompra}"
+                                                    TargetType="Label"
+                                                    Value="2">
                                                     <Setter Property="TextColor" Value="LimeGreen" />
                                                 </DataTrigger>
                                             </Label.Triggers>

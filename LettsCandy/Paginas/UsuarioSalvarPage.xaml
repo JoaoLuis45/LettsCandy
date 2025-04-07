@@ -31,7 +31,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="NomeEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Nome"
                             PlaceholderColor="grey"
                             Text="{Binding Nome}"
@@ -41,7 +41,7 @@
                         <Editor
                             x:Name="ObsEditor"
                             AutoSize="TextChanges"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             HeightRequest="100"
                             Placeholder="Obsercações"
                             PlaceholderColor="grey"

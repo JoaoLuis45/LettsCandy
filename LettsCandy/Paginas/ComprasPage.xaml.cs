@@ -12,19 +12,48 @@ namespace LettsCandy.Paginas
 
         private DatabaseServicos<Compra> _comprasServico;
 
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+
         public ICommand NavigateToComprasSalvarCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
 
         public ComprasPage()
         {
             InitializeComponent();
             _comprasServico = new DatabaseServicos<Compra>(Db.DB_PATH);
             NavigateToComprasSalvarCommand = new Command<Compra>(async (compra) => await NavigateToBoughtSalvar(compra));
+            RefreshCommand = new Command(async () => await OnRefreshCommand());
+            BindingContext = this;
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
             CarregarCompras();
             CarregarTotalizacao();
+        }
+
+        private async Task OnRefreshCommand()
+        {
+            IsBusy = true;
+            try
+            {
+                CarregarCompras();
+                CarregarTotalizacao();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
 
@@ -51,6 +80,14 @@ namespace LettsCandy.Paginas
         {
             var qtdCompras = await _comprasServico.QuantidadeAsync();
             LabelQtdCompras.Text = qtdCompras.ToString();
+
+            var compras = await _comprasServico.TodosAsync();
+            var valorTotalCompras = 0.0;
+            foreach (var item in compras)
+            {
+                valorTotalCompras = valorTotalCompras + item.Valor;
+            }
+            LabelValorTotalCompras.Text = "R$: " + valorTotalCompras.ToString("F2");
         }
     }
 }

@@ -31,7 +31,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="NomeEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Nome"
                             PlaceholderColor="grey"
                             Text="{Binding Nome}"
@@ -43,7 +43,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="QtdEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Quantidade"
                             PlaceholderColor="grey"
@@ -55,7 +55,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="PrecoEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Preço"
                             PlaceholderColor="grey"
@@ -65,7 +65,7 @@
                         <Editor
                             x:Name="DescricaoEditor"
                             AutoSize="TextChanges"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             HeightRequest="100"
                             Placeholder="Descrição"
                             PlaceholderColor="grey"

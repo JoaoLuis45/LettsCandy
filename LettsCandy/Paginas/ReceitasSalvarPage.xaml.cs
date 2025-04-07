@@ -170,6 +170,21 @@ namespace LettsCandy.Paginas
             var itensRelacionados = receitaItems
                 .Where(ri => ri.ReceitaId == Receita.Id).ToList();
             ItemsCollection.ItemsSource = itensRelacionados;
+
+            if (Receita.Items.Count == 0 && itensRelacionados.Count > 0)
+            {
+                var itens = new List<Item>();
+                foreach (var receitaItem in itensRelacionados)
+                {
+                    var item = await _itensServico.Query().Where(i => i.Id == receitaItem.ItemId).FirstOrDefaultAsync();
+                    if (item != null)
+                    {
+                        itens.Add(item);
+                    }
+                }
+
+                Receita.Items = itens;
+            }
         }
 
         private void AumentarQtd(object sender, EventArgs e)
@@ -201,6 +216,26 @@ namespace LettsCandy.Paginas
             }
         }
 
+        private async void RemoverItemClicked(object sender, EventArgs e)
+        {
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir este item?", "Sim", "Não");
+            if (!confirm)
+            {
+                return;
+            }
+
+            var botao = sender as Button;
+            if (botao != null)
+            {
+                var item = botao.BindingContext as ReceitaItem;
+                if (item != null)
+                {
+                    await _receitaItemServico.DeletarAsync(item);
+                    Receita.Items.Clear();
+                    CarregarReceitasItems();
+                }
+            }
+        }
 
         private void Entry_Unfocused(object sender, FocusEventArgs e)
         {

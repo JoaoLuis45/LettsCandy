@@ -31,7 +31,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="NomeEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Nome"
                             PlaceholderColor="grey"
                             Text="{Binding Nome}"
@@ -43,7 +43,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="TelefoneEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Telefone"
                             Unfocused="TelefoneEntry_Unfocused"
@@ -57,7 +57,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="EnderecoEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Endereço"
                             PlaceholderColor="grey"
                             Text="{Binding Endereco}"
@@ -69,7 +69,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="NumeroCasaEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Número da casa"
                             PlaceholderColor="grey"
@@ -81,7 +81,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="CidadeEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Cidade"
                             PlaceholderColor="grey"
                             Text="{Binding Cidade}"
@@ -93,7 +93,7 @@
                         CornerRadius="2">
                         <Picker
                             x:Name="SituacaoClientePicker"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             SelectedItem="{Binding SituacaoCliente}"
                             TextColor="Black">
                             <Picker.ItemsSource />
@@ -103,7 +103,7 @@
                         <Editor
                             x:Name="ObsEditor"
                             AutoSize="TextChanges"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             HeightRequest="100"
                             Placeholder="Observações"
                             PlaceholderColor="grey"

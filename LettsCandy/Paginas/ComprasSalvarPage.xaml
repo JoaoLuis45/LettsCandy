@@ -31,7 +31,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="DescricaoEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Nome"
                             PlaceholderColor="grey"
                             Text="{Binding Descricao}"
@@ -132,28 +132,38 @@
                                                     <Label
                                                         FontAttributes="Bold"
                                                         FontSize="18"
-                                                        VerticalOptions="Center"
                                                         HorizontalOptions="Start"
                                                         Text="Valor do item:"
-                                                        TextColor="grey" />
+                                                        TextColor="grey"
+                                                        VerticalOptions="Center" />
                                                     <Frame
                                                         Margin="0,5,0,10"
                                                         Padding="0"
-                                                        HorizontalOptions="FillAndExpand"
-                                                        CornerRadius="2">
+                                                        CornerRadius="2"
+                                                        HorizontalOptions="FillAndExpand">
                                                         <Entry
                                                             x:Name="ValorItemEntry"
-                                                            BackgroundColor="LightCyan"
-                                                            Keyboard="Numeric"
-                                                            Placeholder="Nome"
-                                                            HeightRequest="35"
                                                             Margin="0"
+                                                            BackgroundColor="White"
+                                                            HeightRequest="35"
+                                                            Keyboard="Numeric"
                                                             PlaceholderColor="grey"
                                                             Text="{Binding ValorItem}"
                                                             TextColor="Black"
                                                             Unfocused="ValorItemEntry_Unfocused" />
                                                     </Frame>
                                                 </StackLayout>
+                                                <Button
+                                                    Margin="0,10,0,0"
+                                                    BackgroundColor="#FF0F10"
+                                                    BorderWidth="1"
+                                                    ImageSource="trash.png"
+                                                    HeightRequest="20"
+                                                    Clicked="RemoverItemClicked"
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    TextColor="#FFFFFF" />
+
                                             </StackLayout>
                                         </Frame>
                                     </DataTemplate>

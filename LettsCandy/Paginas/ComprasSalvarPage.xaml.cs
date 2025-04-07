@@ -113,15 +113,52 @@ namespace LettsCandy.Paginas
             }
         }
 
+        private async void RemoverItemClicked(object sender, EventArgs e)
+        {
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir este item?", "Sim", "Não");
+            if (!confirm)
+            {
+                return;
+            }
+
+            var botao = sender as Button;
+            if (botao != null)
+            { 
+                var item = botao.BindingContext as CompraItem;
+                if(item != null)
+                {
+                    await _compraItemsServico.DeletarAsync(item);
+                    Compra.Items.Clear();
+                    CarregarCompraItems();
+                }
+            }
+        }
+
         private async void CarregarCompraItems()
         {
             var compraItems = await _compraItemsServico.TodosAsync();
             var itensRelacionados = compraItems
                 .Where(ri => ri.CompraId == Compra.Id).ToList();
+
+            if (Compra.Items.Count == 0 && itensRelacionados.Count > 0)
+            {
+                var itens = new List<Item>();
+                foreach (var compraItem in itensRelacionados)
+                {
+                    var item = await _itensServico.Query().Where(i => i.Id == compraItem.ItemId).FirstOrDefaultAsync();
+                    if (item != null)
+                    {
+                        itens.Add(item);
+                    }
+                }
+
+                Compra.Items = itens;
+            }
+
             var valor = 0.0;
             foreach (var item in itensRelacionados)
             {
-                valor += valor + (item.ValorItem * item.QtdItem);
+                valor += item.ValorItem * item.QtdItem;
             }
             Compra.Valor = valor;
             await _comprasServico.AlterarAsync(Compra);
@@ -178,6 +215,7 @@ namespace LettsCandy.Paginas
             var entry = sender as Entry;
             if (entry != null)
             {
+                entry.Text = entry.Text.Replace(',', '.');
                 var compraItem = entry.BindingContext as CompraItem;
                 if (compraItem != null)
                 {

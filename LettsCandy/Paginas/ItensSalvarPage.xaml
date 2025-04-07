@@ -31,7 +31,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="NomeEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Placeholder="Nome"
                             PlaceholderColor="grey"
                             Text="{Binding Nome}"
@@ -43,7 +43,7 @@
                         CornerRadius="2">
                         <Entry
                             x:Name="QtdEntry"
-                            BackgroundColor="LightCyan"
+                            BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Quantidade"
                             PlaceholderColor="grey"
