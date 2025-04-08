@@ -5,9 +5,7 @@ public class RemessaLigacao{
 
     public RemessaLigacao()
     {
-        this.Items = new List<Item>();
-        this.Receitas = new List<Receita>();
-        this.Produtos = new List<Produto>();
+        this.RemessaItems = new List<RemessaItem>();
         this.ProdutoQtd = 0;
     }
 
@@ -17,14 +15,11 @@ public class RemessaLigacao{
     public int ProdutoId {get;set;}
     public int ProdutoQtd {get;set;}
     public int ReceitaId {get;set;}
+    public double ReceitaQtd {get;set;}
     [Ignore]
     public Produto Produto {get;set;}
     [Ignore]
     public Receita Receita {get;set;}
     [Ignore]
-    public List<Item> Items { get; set; }
-    [Ignore]
-    public List<Receita> Receitas { get; set; }
-    [Ignore]
-    public List<Produto> Produtos { get; set; }
+    public List<RemessaItem> RemessaItems { get; set; }
 }

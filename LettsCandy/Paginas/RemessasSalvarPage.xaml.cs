@@ -14,6 +14,7 @@ namespace LettsCandy.Paginas
         private DatabaseServicos<Item> _itensServico;
         private DatabaseServicos<Produto> _produtosServico;
         private DatabaseServicos<Receita> _receitasServico;
+        private DatabaseServicos<ReceitaItem> _receitaItemServico;
         private DatabaseServicos<Remessa> _remessasServico;
         private DatabaseServicos<RemessaLigacao> _remessaLigacaoServico;
         private DatabaseServicos<RemessaItem> _remessaItemServico;
@@ -24,6 +25,7 @@ namespace LettsCandy.Paginas
             _itensServico = new DatabaseServicos<Item>(Db.DB_PATH);
             _produtosServico = new DatabaseServicos<Produto>(Db.DB_PATH);
             _receitasServico = new DatabaseServicos<Receita>(Db.DB_PATH);
+            _receitaItemServico = new DatabaseServicos<ReceitaItem>(Db.DB_PATH);
             _remessasServico = new DatabaseServicos<Remessa>(Db.DB_PATH);
             _remessaLigacaoServico = new DatabaseServicos<RemessaLigacao>(Db.DB_PATH);
             _remessaItemServico = new DatabaseServicos<RemessaItem>(Db.DB_PATH);
@@ -39,6 +41,11 @@ namespace LettsCandy.Paginas
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            ProdutosPicker.ItemsSource = await _produtosServico.TodosAsync();
+            ReceitasPicker.ItemsSource = await _receitasServico.TodosAsync();
+
+            RemessaLigacaoFrame.IsVisible = Remessa.Id != 0;
+
             CarregarRemessas();
         }
 
@@ -98,13 +105,48 @@ namespace LettsCandy.Paginas
                 return;
             }
 
-            var remessaLigacao = new RemessaLigacao {
+            if (ProdutosPicker.SelectedItem == null)
+            {
+                await DisplayAlert("Erro", "O Produto é obrigatório", "Ok");
+                ProdutosPicker.Focus();
+                return;
+            }
+
+            if (ReceitasPicker.SelectedItem == null)
+            {
+                await DisplayAlert("Erro", "A receita é obrigatório", "Ok");
+                ReceitasPicker.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(ProdutoQtdEntry.Text))
+            {
+                await DisplayAlert("Erro", "A quantidade é obrigatória", "Ok");
+                ProdutoQtdEntry.Focus();
+                return;
+            }
+
+
+            var remessaLigacao = new RemessaLigacao
+            {
                 RemessaId = Remessa.Id,
-                Produtos = _produtosServico.TodosAsync().Result,
-                Receitas = _receitasServico.TodosAsync().Result,
+                ProdutoId = ((Produto)ProdutosPicker.SelectedItem).Id,
+                ProdutoQtd = int.Parse(ProdutoQtdEntry.Text),
+                ReceitaId = ((Receita)ReceitasPicker.SelectedItem).Id,
+                ReceitaQtd = Math.Ceiling((double)int.Parse(ProdutoQtdEntry.Text) / ((Receita)ReceitasPicker.SelectedItem).QtdProdutosResultantes * 10) / 10,
             };
+
             await _remessaLigacaoServico.IncluirAsync(remessaLigacao);
             Remessa.RemessaLigacoes.Add(remessaLigacao);
+
+            var remessaItems = new RemessaItem
+            {
+                RemessaLigacaoId = remessaLigacao.Id,
+                ReceitaItems = await _receitaItemServico.Query().Where(ri => ri.ReceitaId == remessaLigacao.ReceitaId).ToListAsync(),
+                ReceitaItemsQtd = (await _receitaItemServico.Query().Where(ri => ri.ReceitaId == remessaLigacao.ReceitaId).ToListAsync()).Select(ri => ri.QtdItem * remessaLigacao.ReceitaQtd).ToList()
+            };
+
+            await _remessaItemServico.IncluirAsync(remessaItems);
 
             CarregarRemessas();
         }
@@ -119,12 +161,11 @@ namespace LettsCandy.Paginas
 
             var botao = sender as Button;
             if (botao != null)
-            { 
+            {
                 var item = botao.BindingContext as RemessaLigacao;
-                if(item != null)
+                if (item != null)
                 {
                     await _remessaLigacaoServico.DeletarAsync(item);
-                    item.Items.Clear();
                     CarregarRemessas();
                 }
             }
@@ -132,83 +173,21 @@ namespace LettsCandy.Paginas
 
         private async void CarregarRemessas()
         {
-
             var remessaLigacao = await _remessaLigacaoServico.TodosAsync();
             var remessasLigacaoRelacionados = remessaLigacao
-                .Where(ri => ri.Id == Remessa.Id).ToList();
+                .Where(ri => ri.RemessaId == Remessa.Id).ToList();
 
-            //var remessaItems = await _remessaItemServico.TodosAsync();
-            //var itensRelacionados = remessaItems
-            //    .Where(ri => ri.RemessaLigacaoId == RemessaLigacao.Id).ToList();
+            foreach (var i in remessasLigacaoRelacionados)
+            {
+                i.Produto = await _produtosServico.Query().Where(p => p.Id == i.ProdutoId).FirstOrDefaultAsync();
+                i.Receita = await _receitasServico.Query().Where(p => p.Id == i.ReceitaId).FirstOrDefaultAsync();
+                i.RemessaItems = await _remessaItemServico.Query().Where(p => p.RemessaLigacaoId == i.Id).ToListAsync();
+            }
 
-            //if (RemessaLigacao.Items.Count == 0 && itensRelacionados.Count > 0)
-            //{
-            //    var itens = new List<Item>();
-            //    foreach (var remessaItem in itensRelacionados)
-            //    {
-            //        var item = await _itensServico.Query().Where(i => i.Id == remessaItem.ItemId).FirstOrDefaultAsync();
-            //        if (item != null)
-            //        {
-            //            itens.Add(item);
-            //        }
-            //    }
-
-            //    RemessaLigacao.Items = itens;
-            //}
-
-            //var valor = 0.0;
-            //foreach (var item in itensRelacionados)
-            //{
-            //    valor += item.ValorItem * item.QtdItem;
-            //}
-            //Compra.Valor = valor;
             ProdutosCollection.ItemsSource = remessasLigacaoRelacionados;
         }
 
-        private void AumentarQtd(object sender, EventArgs e)
-        {
-            var botao = sender as Button;
-            if (botao != null)
-            {
-                var remessaItem = botao.BindingContext as RemessaItem;
-                if (remessaItem != null)
-                {
-                    remessaItem.QtdItem++;
-                    _remessaItemServico.AlterarAsync(remessaItem);
-                    CarregarRemessas();
-                }
-            }
-        }
-        private void DiminuirQtd(object sender, EventArgs e)
-        {
-            var botao = sender as Button;
-            if (botao != null)
-            {
-                var remessaItem = botao.BindingContext as RemessaItem;
-                if (remessaItem != null)
-                {
-                    remessaItem.QtdItem--;
-                    _remessaItemServico.AlterarAsync(remessaItem);
-                    CarregarRemessas();
-                }
-            }
-        }
-
-
-        private void Entry_Unfocused(object sender, FocusEventArgs e)
-        {
-            var entry = sender as Entry;
-            if (entry != null)
-            {
-                var remessaItem = entry.BindingContext as RemessaItem;
-                if (remessaItem != null)
-                {
-                    remessaItem.QtdItem = int.Parse(entry.Text);
-                    _remessaItemServico.AlterarAsync(remessaItem);
-                    CarregarRemessas();
-                }
-            }
-        }
+       
 
         private async void ProdutoQtdEntry_Unfocused(object sender, FocusEventArgs e)
         {

@@ -163,17 +163,25 @@
                                                             Unfocused="ValorItemEntry_Unfocused" />
                                                     </Frame>
                                                 </StackLayout>
-                                                <Button
-                                                    Margin="0,10,0,0"
+                                                <Frame
                                                     Padding="0"
-                                                    BackgroundColor="#FFFFFF"
-                                                    BorderWidth="1"
-                                                    Clicked="RemoverItemClicked"
-                                                    FontAttributes="Bold"
-                                                    HeightRequest="20"
+                                                    BackgroundColor="Transparent"
+                                                    BorderColor="Transparent"
+                                                    HeightRequest="25"
                                                     HorizontalOptions="Center"
-                                                    ImageSource="delete.png"
-                                                    TextColor="#FFFFFF" />
+                                                    WidthRequest="25">
+                                                    <Button
+                                                        Margin="0,0,0,0"
+                                                        Padding="0"
+                                                        BackgroundColor="#FFFFFF"
+                                                        BorderWidth="1"
+                                                        Clicked="RemoverItemClicked"
+                                                        FontAttributes="Bold"
+                                                        HeightRequest="20"
+                                                        HorizontalOptions="Center"
+                                                        ImageSource="delete.png"
+                                                        TextColor="#FFFFFF" />
+                                                </Frame>
 
                                             </StackLayout>
                                         </Frame>
