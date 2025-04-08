@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:paginas="clr-namespace:LettsCandy.Paginas"
-    Title="Salvar Receita">
+    Title="Salvar Compra">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="FrameCardStyle" TargetType="Frame">
@@ -17,13 +17,16 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Padding="0,0" Spacing="25">
             <Image
                 Aspect="AspectFit"
                 HeightRequest="150"
                 SemanticProperties.Description="Salvar Compra"
-                Source="compras.png" />
-            <Frame Style="{StaticResource FrameCardStyle}">
+                Source="checklist.png" />
+            <Frame
+                Padding="0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent">
                 <StackLayout Padding="20">
                     <Frame
                         Margin="0,0,0,10"
@@ -38,7 +41,10 @@
                             TextColor="Black" />
                     </Frame>
 
-                    <Frame Padding="10" Style="{StaticResource FrameCardStyle}">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent">
                         <StackLayout>
                             <Label
                                 FontAttributes="Bold"
@@ -50,7 +56,10 @@
                             <CollectionView x:Name="ItemsCollection">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Frame Margin="0,10,0,0" Style="{StaticResource FrameCardStyle}">
+                                        <Frame
+                                            Margin="0,10,0,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Style="{StaticResource FrameCardStyle}">
                                             <StackLayout Padding="10">
                                                 <StackLayout Padding="10" Orientation="Horizontal">
                                                     <StackLayout
@@ -140,7 +149,8 @@
                                                         Margin="0,5,0,10"
                                                         Padding="0"
                                                         CornerRadius="2"
-                                                        HorizontalOptions="FillAndExpand">
+                                                        HorizontalOptions="Center"
+                                                        WidthRequest="100">
                                                         <Entry
                                                             x:Name="ValorItemEntry"
                                                             Margin="0"
@@ -155,13 +165,14 @@
                                                 </StackLayout>
                                                 <Button
                                                     Margin="0,10,0,0"
-                                                    BackgroundColor="#FF0F10"
+                                                    Padding="0"
+                                                    BackgroundColor="#FFFFFF"
                                                     BorderWidth="1"
-                                                    ImageSource="trash.png"
-                                                    HeightRequest="20"
                                                     Clicked="RemoverItemClicked"
                                                     FontAttributes="Bold"
-                                                    HorizontalOptions="FillAndExpand"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    ImageSource="delete.png"
                                                     TextColor="#FFFFFF" />
 
                                             </StackLayout>

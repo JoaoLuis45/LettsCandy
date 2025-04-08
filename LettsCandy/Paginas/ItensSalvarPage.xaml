@@ -22,7 +22,7 @@
                 Aspect="AspectFit"
                 HeightRequest="150"
                 SemanticProperties.Description="Salvar Item"
-                Source="item.png" />
+                Source="brand.png" />
             <Frame Style="{StaticResource FrameCardStyle}">
                 <StackLayout Padding="20">
                     <Frame

@@ -9,12 +9,14 @@ namespace LettsCandy.Paginas
     {
         DatabaseServicos<Produto> _produtoServico;
         DatabaseServicos<Item> _itensServico;
+        DatabaseServicos<Receita> _receitasServico;
 
         public MainPage()
         {
             InitializeComponent();
             _produtoServico = new DatabaseServicos<Produto>(Db.DB_PATH);
             _itensServico = new DatabaseServicos<Item>(Db.DB_PATH);
+            _receitasServico = new DatabaseServicos<Receita>(Db.DB_PATH);
 
         }
 
@@ -23,7 +25,7 @@ namespace LettsCandy.Paginas
             var qtdItens = await _itensServico.QuantidadeAsync();
             if (qtdItens == 0) 
             {
-                await DisplayAlert("Informação", "Não Existem itens cadastrados. Cadastre para poder acessar a tela de receitas.", "Ok");
+                await DisplayAlert("Informação", "Não Existem itens cadastrados. Cadastre para poder acessar a tela.", "Ok");
                 return true;
             }
             return false;
@@ -34,7 +36,18 @@ namespace LettsCandy.Paginas
             var qtdProdutos = await _produtoServico.QuantidadeAsync();
             if (qtdProdutos == 0)
             {
-                await DisplayAlert("Informação", "Não Existem produtos cadastrados. Cadastre para poder acessar a tela de receitas.", "Ok");
+                await DisplayAlert("Informação", "Não Existem produtos cadastrados. Cadastre para poder acessar a tela.", "Ok");
+                return true;
+            }
+            return false;
+        }
+
+        private async Task<bool> VerificaQtdReceitas()
+        {
+            var qtdReceitas = await _receitasServico.QuantidadeAsync();
+            if (qtdReceitas == 0)
+            {
+                await DisplayAlert("Informação", "Não Existem receitas cadastradas. Cadastre para poder acessar a tela.", "Ok");
                 return true;
             }
             return false;
@@ -67,6 +80,13 @@ namespace LettsCandy.Paginas
         {
             if (await VerificaQtdItems()) return;
             await Navigation.PushAsync(new ComprasPage());
+        }
+        private async void NavigateToShipments(object sender, TappedEventArgs e)
+        {
+            if (await VerificaQtdProdutos()) return;
+            if (await VerificaQtdReceitas()) return;
+            if (await VerificaQtdItems()) return;
+            await Navigation.PushAsync(new RemessasPage());
         }
     }
 }

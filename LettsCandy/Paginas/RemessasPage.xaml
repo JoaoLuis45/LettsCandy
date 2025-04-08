@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LettsCandy.Paginas.RemessasPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:paginas="clr-namespace:LettsCandy.Paginas"
+    Title="Remessas">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy}"
+        RefreshColor="red">
+        <ScrollView>
+            <VerticalStackLayout Padding="30,0" Spacing="25">
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    SemanticProperties.Description="remessas"
+                    Source="remessas.png" />
+                <Button
+                    BackgroundColor="#FF0F10"
+                    Clicked="NovoClicked"
+                    FontAttributes="Bold"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Nova Remessa" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    Text="Listagem de remessas"
+                    TextColor="grey" />
+
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        Text="Quantidade de Remessas:"
+                        TextColor="grey" />
+                    <Label
+                        x:Name="LabelQtdRemessas"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="Start"
+                        TextColor="grey" />
+                </StackLayout>
+
+                <CollectionView x:Name="RemessasCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource FrameCardStyle}">
+                                <StackLayout
+                                    Margin="0,0,0,10"
+                                    Padding="10"
+                                    Orientation="Horizontal">
+                                    <StackLayout
+                                        Margin="10,0,0,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Spacing="5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Descricao}" />
+                                        <Label
+                                            FontAttributes="Italic"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding DataCompra}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Orientation="Horizontal"
+                                        Spacing="5"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            Text="Situação"
+                                            TextColor="LightGrey" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            Text="{Binding SituacaoRemessa}">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding SituacaoRemessa}"
+                                                    TargetType="Label"
+                                                    Value="2">
+                                                    <Setter Property="TextColor" Value="#FF0F10" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding SituacaoRemessa}"
+                                                    TargetType="Label"
+                                                    Value="1">
+                                                    <Setter Property="TextColor" Value="LimeGreen" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:RemessasPage}}, Path=NavigateToRemessasSalvarCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

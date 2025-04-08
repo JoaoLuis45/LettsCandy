@@ -152,7 +152,7 @@
                             TextColor="Black" />
                     </VerticalStackLayout>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                        <TapGestureRecognizer Tapped="NavigateToShipments" />
                     </Frame.GestureRecognizers>
                 </Frame>
                 <Frame
