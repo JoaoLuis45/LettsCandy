@@ -7,6 +7,7 @@ public class Remessa{
     {
         this.DataRemessa = DateTime.Now;
         this.RemessaLigacoes = new List<RemessaLigacao>();
+        this.SituacaoRemessa = SituacaoRemessa.NaoProduzida;
     }
 
     [PrimaryKey, AutoIncrement]
@@ -15,6 +16,5 @@ public class Remessa{
     public DateTime DataRemessa { get; set; }
     [Ignore]
     public List<RemessaLigacao> RemessaLigacoes { get; set; }
-    [Ignore]
     public SituacaoRemessa SituacaoRemessa { get; set; }
 }

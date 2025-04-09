@@ -5,8 +5,8 @@ public class RemessaLigacao{
 
     public RemessaLigacao()
     {
-        this.RemessaItems = new List<RemessaItem>();
         this.ProdutoQtd = 0;
+        this.RemessaItems = new List<RemessaItem>();
     }
 
     [PrimaryKey, AutoIncrement]

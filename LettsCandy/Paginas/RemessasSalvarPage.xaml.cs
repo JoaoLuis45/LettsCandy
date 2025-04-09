@@ -32,10 +32,6 @@ namespace LettsCandy.Paginas
             Remessa = remessa;
             BindingContext = remessa;
 
-            SituacaoRemessaPicker.ItemsSource = Enum.GetValues(typeof(SituacaoRemessa)).Cast<SituacaoRemessa>().ToList();
-            SituacaoRemessaPicker.SelectedItem = remessa.SituacaoRemessa;
-
-
         }
 
         protected async override void OnAppearing()
@@ -45,6 +41,9 @@ namespace LettsCandy.Paginas
             ReceitasPicker.ItemsSource = await _receitasServico.TodosAsync();
 
             RemessaLigacaoFrame.IsVisible = Remessa.Id != 0;
+            FrameTotalizacao.IsVisible = Remessa.Id != 0;
+
+
 
             CarregarRemessas();
         }
@@ -59,11 +58,6 @@ namespace LettsCandy.Paginas
                 DescricaoEntry.Focus();
                 return;
             }
-
-            if (SituacaoRemessaPicker.SelectedItem != null)
-                Remessa.SituacaoRemessa = (SituacaoRemessa)SituacaoRemessaPicker.SelectedItem;
-            else
-                Remessa.SituacaoRemessa = SituacaoRemessa.NaoProduzida;
 
             Remessa.Descricao = DescricaoEntry.Text;
 
@@ -139,14 +133,19 @@ namespace LettsCandy.Paginas
             await _remessaLigacaoServico.IncluirAsync(remessaLigacao);
             Remessa.RemessaLigacoes.Add(remessaLigacao);
 
-            var remessaItems = new RemessaItem
-            {
-                RemessaLigacaoId = remessaLigacao.Id,
-                ReceitaItems = await _receitaItemServico.Query().Where(ri => ri.ReceitaId == remessaLigacao.ReceitaId).ToListAsync(),
-                ReceitaItemsQtd = (await _receitaItemServico.Query().Where(ri => ri.ReceitaId == remessaLigacao.ReceitaId).ToListAsync()).Select(ri => ri.QtdItem * remessaLigacao.ReceitaQtd).ToList()
-            };
+            var ReceitaItems = await _receitaItemServico.Query().Where(ri => ri.ReceitaId == remessaLigacao.ReceitaId).ToListAsync();
 
-            await _remessaItemServico.IncluirAsync(remessaItems);
+            foreach (var item in ReceitaItems)
+            {
+                var remessaItem = new RemessaItem
+                {
+                    RemessaLigacaoId = remessaLigacao.Id,
+                    ReceitaItemId = item.Id,
+                    ReceitaNomeItem = item.NomeItem,
+                    ReceitaItemQtd = Math.Round(remessaLigacao.ReceitaQtd * item.QtdItem, 1)
+                };
+                await _remessaItemServico.IncluirAsync(remessaItem);
+            }
 
             CarregarRemessas();
         }
@@ -177,6 +176,8 @@ namespace LettsCandy.Paginas
             var remessasLigacaoRelacionados = remessaLigacao
                 .Where(ri => ri.RemessaId == Remessa.Id).ToList();
 
+            FrameTotalizacao.IsVisible = remessasLigacaoRelacionados.Count != 0;
+
             foreach (var i in remessasLigacaoRelacionados)
             {
                 i.Produto = await _produtosServico.Query().Where(p => p.Id == i.ProdutoId).FirstOrDefaultAsync();
@@ -185,9 +186,30 @@ namespace LettsCandy.Paginas
             }
 
             ProdutosCollection.ItemsSource = remessasLigacaoRelacionados;
+            CarregarTotalizacao(remessasLigacaoRelacionados);
         }
 
-       
+        private async void CarregarTotalizacao(List<RemessaLigacao> remessasRelacionadas)
+        {
+            var remessaItensDistintos = remessasRelacionadas
+                .SelectMany(rl => rl.RemessaItems)
+                .GroupBy(ri => ri.ReceitaNomeItem)
+                .Select(g => new RemessaItem
+                {
+                    ReceitaNomeItem = g.Key,
+                    ReceitaItemQtd = Math.Round(g.Sum(ri => ri.ReceitaItemQtd), 1)
+                })
+                .ToList();
+
+            foreach (var item in remessaItensDistintos)
+            {
+                item.Item = await _itensServico.Query().Where(i => i.Nome == item.ReceitaNomeItem).FirstOrDefaultAsync();
+            }
+
+            TotRemessaItensCollection.ItemsSource = remessaItensDistintos;
+        }
+
+
 
         private async void ProdutoQtdEntry_Unfocused(object sender, FocusEventArgs e)
         {

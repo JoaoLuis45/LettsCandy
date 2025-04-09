@@ -75,6 +75,51 @@ namespace LettsCandy.Paginas
             await _comprasServico.DeletarAsync(Compra);
             await Navigation.PopAsync();
         }
+        private async void FinalizarCompraClicked(object sender, EventArgs e)
+        {
+            if (Compra.Id == 0)
+            {
+                await DisplayAlert("Erro", "Não é possível finalizar uma compra que não existe", "Ok");
+                return;
+            }
+
+            var itens = await _compraItemsServico.Query().Where(i => i.CompraId == Compra.Id).ToListAsync();
+            if (itens.Count == 0)
+            {
+                await DisplayAlert("Erro", "Não é possível finalizar uma compra sem itens", "Ok");
+                return;
+            }
+
+            foreach (var item in itens)
+            {
+                if(item.QtdItem <= 0)
+                {
+                    await DisplayAlert("Erro", "Existem itens com a quantidade zerada. Exclua-os ou adicione uma quantidade válida!", "Ok");
+                    return;
+                }
+            }
+
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir esta compra?", "Sim", "Não");
+            if (!confirm)
+            {
+                return;
+            }
+
+            foreach (var item in itens)
+            {
+                var itemRelacionado = await _itensServico.Query().Where(i => i.Id == item.ItemId).FirstOrDefaultAsync();
+                if (itemRelacionado != null)
+                {
+                    itemRelacionado.Qtd += item.QtdItem;
+                    await _itensServico.AlterarAsync(itemRelacionado);
+                }
+            }
+
+            Compra.SituacaoCompra = SituacaoCompra.Finalizada;
+            await _comprasServico.AlterarAsync(Compra);
+
+            await Navigation.PopAsync();
+        }
 
         private async void AdicionarItemClicked(object sender, EventArgs e)
         {

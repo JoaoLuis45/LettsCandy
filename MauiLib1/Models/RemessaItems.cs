@@ -6,8 +6,9 @@ public class RemessaItem{
     [PrimaryKey, AutoIncrement]
     public int Id {get;set;}
     public int RemessaLigacaoId {get;set;}
+    public int ReceitaItemId { get; set; }
+    public string ReceitaNomeItem { get; set; }
+    public double ReceitaItemQtd { get; set; }
     [Ignore]
-    public List<ReceitaItem> ReceitaItems { get; set; }
-    [Ignore]
-    public List<double> ReceitaItemsQtd { get; set; }
+    public Item Item { get; set; }
 }

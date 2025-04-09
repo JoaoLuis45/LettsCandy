@@ -2,6 +2,6 @@
 
 public enum SituacaoCompra
 {
-    Utilizada = 1,
-    NaoUtilizada = 2
+    Finalizada = 1,
+    Pendente = 2
 }

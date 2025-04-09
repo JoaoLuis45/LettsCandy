@@ -46,10 +46,10 @@
                             BackgroundColor="White"
                             Keyboard="Numeric"
                             Placeholder="Telefone"
-                            Unfocused="TelefoneEntry_Unfocused"
-                            TextChanged="TelefoneEntry_TextChanged"
                             PlaceholderColor="grey"
-                            Text="{Binding Telefone}" />
+                            Text="{Binding Telefone}"
+                            TextChanged="TelefoneEntry_TextChanged"
+                            Unfocused="TelefoneEntry_Unfocused" />
                     </Frame>
                     <Frame
                         Margin="0,0,0,10"
