@@ -8,6 +8,7 @@ public class Compra{
         this.DataCompra = DateTime.Now;
         this.Items = new List<Item>();
         this.Valor = 0.0;
+        SituacaoCompra = MauiLib.Core.Enums.SituacaoCompra.Pendente;
     }
 
     [PrimaryKey, AutoIncrement]

@@ -67,7 +67,7 @@ namespace LettsCandy.Paginas
             var botao = sender as Button;
             if (sender != null)
             {
-                await Navigation.PushAsync(new ComprasSalvarPage(new Compra { SituacaoCompra = MauiLib.Core.Enums.SituacaoCompra.NaoUtilizada }));
+                await Navigation.PushAsync(new ComprasSalvarPage(new Compra {  }));
             }
 
         }

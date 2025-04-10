@@ -31,6 +31,7 @@ namespace LettsCandy.Paginas
         {
             base.OnAppearing();
             CarregarCompraItems();
+            FinalizarCompraBtn.IsVisible = Compra.Id != 0;
         }
 
 

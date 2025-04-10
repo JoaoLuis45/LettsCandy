@@ -134,13 +134,13 @@
                                                 <DataTrigger
                                                     Binding="{Binding SituacaoCompra}"
                                                     TargetType="Label"
-                                                    Value="1">
+                                                    Value="2">
                                                     <Setter Property="TextColor" Value="#FF0F10" />
                                                 </DataTrigger>
                                                 <DataTrigger
                                                     Binding="{Binding SituacaoCompra}"
                                                     TargetType="Label"
-                                                    Value="2">
+                                                    Value="1">
                                                     <Setter Property="TextColor" Value="LimeGreen" />
                                                 </DataTrigger>
                                             </Label.Triggers>

@@ -316,6 +316,17 @@
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
 
+                            <Button
+                                Margin="0,10,0,0"
+                                BackgroundColor="#FFFFFF"
+                                BorderColor="#FF0F10"
+                                BorderWidth="1"
+                                Clicked="AdicionarItemClicked"
+                                FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand"
+                                Text="+"
+                                TextColor="#FF0F10" />
+
                             <Frame
                                 x:Name="FrameTotalizacao"
                                 Margin="0,20,0,20"
@@ -370,10 +381,10 @@
                                                             </StackLayout>
                                                         </StackLayout>
                                                         <StackLayout
-                                                            Orientation="Horizontal"
-                                                            Spacing="5"
                                                             Padding="0,0,10,10"
                                                             HorizontalOptions="EndAndExpand"
+                                                            Orientation="Horizontal"
+                                                            Spacing="5"
                                                             VerticalOptions="Center">
                                                             <Label
                                                                 FontAttributes="Bold"
@@ -393,17 +404,6 @@
                                     </CollectionView>
                                 </StackLayout>
                             </Frame>
-
-                            <Button
-                                Margin="0,10,0,0"
-                                BackgroundColor="#FFFFFF"
-                                BorderColor="#FF0F10"
-                                BorderWidth="1"
-                                Clicked="AdicionarItemClicked"
-                                FontAttributes="Bold"
-                                HorizontalOptions="FillAndExpand"
-                                Text="+"
-                                TextColor="#FF0F10" />
 
                         </StackLayout>
                     </Frame>

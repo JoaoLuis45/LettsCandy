@@ -222,6 +222,7 @@
                         Text="Salvar" />
                     <Button
                         Margin="0,10,0,0"
+                        x:Name="FinalizarCompraBtn"
                         BackgroundColor="#FF0F10"
                         Clicked="FinalizarCompraClicked"
                         FontAttributes="Bold"
