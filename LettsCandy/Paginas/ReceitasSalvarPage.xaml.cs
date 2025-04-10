@@ -31,7 +31,11 @@ namespace LettsCandy.Paginas
 
         protected async override void OnAppearing()
         {
-            base.OnAppearing();
+            base.OnAppearing();          
+        }
+
+        public async Task ExecuteOnAppearing()
+        {
             ProdutosPicker.ItemsSource = await _produtosServico.TodosAsync();
             ProdutoFrame.IsVisible = Receita.Id != 0;
             if (Receita.Id != 0)
@@ -43,7 +47,6 @@ namespace LettsCandy.Paginas
             }
             CarregarReceitasItems();
         }
-
 
         private async void SalvarClicked(object sender, EventArgs e)
         {

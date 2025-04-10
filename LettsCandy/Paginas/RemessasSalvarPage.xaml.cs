@@ -37,13 +37,17 @@ namespace LettsCandy.Paginas
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            
+        }
+
+        public async Task ExecuteOnAppearing()
+        {
             ProdutosPicker.ItemsSource = await _produtosServico.TodosAsync();
             ReceitasPicker.ItemsSource = await _receitasServico.TodosAsync();
 
             RemessaLigacaoFrame.IsVisible = Remessa.Id != 0;
             FrameTotalizacao.IsVisible = Remessa.Id != 0;
-
-
+            ProduzirRemessaBtn.IsVisible = Remessa.Id != 0;
 
             CarregarRemessas();
         }
@@ -209,6 +213,100 @@ namespace LettsCandy.Paginas
             TotRemessaItensCollection.ItemsSource = remessaItensDistintos;
         }
 
+        private async void ProduzirRemessaClicked(object sender, EventArgs e)
+        {
+
+            if (Remessa.Id == 0)
+            {
+                await DisplayAlert("Informação", "Salve a remessa primeiro para produzir.", "Ok");
+                return;
+            }
+            if (Remessa.SituacaoRemessa == SituacaoRemessa.Produzida)
+            {
+                await DisplayAlert("Informação", "Remessa já produzida!.", "Ok");
+                return;
+            }
+            if (RemessaLigacaoFrame.IsVisible == false)
+            {
+                await DisplayAlert("Informação", "Adicione produtos e receitas para produzir.", "Ok");
+                return;
+            }
+            
+
+            var remessaLigacao = await _remessaLigacaoServico.TodosAsync();
+            var remessasLigacaoRelacionados = remessaLigacao
+                .Where(ri => ri.RemessaId == Remessa.Id).ToList();
+
+            foreach (var i in remessasLigacaoRelacionados)
+            {
+                i.Produto = await _produtosServico.Query().Where(p => p.Id == i.ProdutoId).FirstOrDefaultAsync();
+                i.Receita = await _receitasServico.Query().Where(p => p.Id == i.ReceitaId).FirstOrDefaultAsync();
+                i.RemessaItems = await _remessaItemServico.Query().Where(p => p.RemessaLigacaoId == i.Id).ToListAsync();
+            }
+
+
+            var remessaItensDistintos = remessasLigacaoRelacionados
+                .SelectMany(rl => rl.RemessaItems)
+                .GroupBy(ri => ri.ReceitaNomeItem)
+                .Select(g => new RemessaItem
+                {
+                    ReceitaNomeItem = g.Key,
+                    ReceitaItemQtd = Math.Round(g.Sum(ri => ri.ReceitaItemQtd), 1)
+                })
+                .ToList();
+
+            foreach (var item in remessaItensDistintos)
+            {
+                item.Item = await _itensServico.Query().Where(i => i.Nome == item.ReceitaNomeItem).FirstOrDefaultAsync();
+            }
+
+            foreach (var item in remessaItensDistintos)
+            {
+                if(item.ReceitaItemQtd > item.Item.Qtd)
+                {
+                    await DisplayAlert("Informação", $"Não é possível produzir a remessa pois a quamntidade do item {item.Item.Nome} é maior do que a quantidade em estoque.", "Ok");
+                    return;
+                }
+            }
+
+            if (RemessaLigacaoFrame.IsVisible == true)
+            {
+                var confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja produzir esta remessa?", "Sim", "Não");
+                if (!confirm)
+                {
+                    return;
+                }
+            }
+
+            foreach (var item in remessaItensDistintos)
+            {
+                item.Item = await _itensServico.Query().Where(i => i.Nome == item.ReceitaNomeItem).FirstOrDefaultAsync();
+                item.Item.Qtd -= item.ReceitaItemQtd;
+                DarBaixaDosInsumos(item.Item);
+            }
+
+
+            foreach (var item in remessasLigacaoRelacionados)
+            {
+                item.Produto.Quantidade += item.ProdutoQtd;
+                DarEntradaDosProdutos(item.Produto);
+            }
+
+           Remessa.SituacaoRemessa = SituacaoRemessa.Produzida;
+            await _remessasServico.AlterarAsync(Remessa);
+            await Navigation.PopAsync();
+        }
+
+
+        private async void DarBaixaDosInsumos(Item item)
+        {
+            await _itensServico.AlterarAsync(item);
+        }
+
+        private async void DarEntradaDosProdutos(Produto produto)
+        {
+            await _produtosServico.AlterarAsync(produto);
+        }
 
 
         private async void ProdutoQtdEntry_Unfocused(object sender, FocusEventArgs e)

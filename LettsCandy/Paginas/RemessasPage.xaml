@@ -119,6 +119,13 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                <ActivityIndicator x:Name="loadingIndicator"
+                         IsVisible="false"
+                         IsRunning="false"
+                         Color="#FF0F10"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
         </ScrollView>

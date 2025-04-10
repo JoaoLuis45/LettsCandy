@@ -13,7 +13,7 @@ public class Item{
 
     [PrimaryKey, AutoIncrement]
     public int Id {get;set;}
-    public int Qtd {get;set;}
+    public double Qtd {get;set;}
     public string Nome {get;set;}
     public DateTime DataCriacao { get; set; }
     public DateTime DataAtualizacao { get; set; }

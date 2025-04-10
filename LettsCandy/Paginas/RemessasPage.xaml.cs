@@ -59,7 +59,17 @@ namespace LettsCandy.Paginas
 
         private async Task NavigateToShipmentSalvar(Remessa remessa)
         {
-            await Navigation.PushAsync(new RemessasSalvarPage(remessa));
+            loadingIndicator.IsVisible = true;
+            loadingIndicator.IsRunning = true;
+
+            var paginaSalvarRemessas = new RemessasSalvarPage(remessa);
+
+            await paginaSalvarRemessas.ExecuteOnAppearing();
+
+            await Navigation.PushAsync(paginaSalvarRemessas);
+
+            loadingIndicator.IsVisible = false;
+            loadingIndicator.IsRunning = false;
         }
 
         private async void NovoClicked(object sender, EventArgs e)
@@ -67,7 +77,11 @@ namespace LettsCandy.Paginas
             var botao = sender as Button;
             if (sender != null)
             {
-                await Navigation.PushAsync(new RemessasSalvarPage(new Remessa { SituacaoRemessa = MauiLib.Core.Enums.SituacaoRemessa.NaoProduzida }));
+                var paginaSalvarRemessas = new RemessasSalvarPage(new Remessa { SituacaoRemessa = MauiLib.Core.Enums.SituacaoRemessa.NaoProduzida });
+
+                await paginaSalvarRemessas.ExecuteOnAppearing();
+
+                await Navigation.PushAsync(paginaSalvarRemessas);
             }
 
         }

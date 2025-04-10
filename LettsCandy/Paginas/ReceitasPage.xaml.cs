@@ -29,7 +29,16 @@ namespace LettsCandy.Paginas
 
         private async Task NavigateToReceiptSalvar(Receita receita)
         {
-            await Navigation.PushAsync(new ReceitasSalvarPage(receita));
+            loadingIndicator.IsVisible = true;
+            loadingIndicator.IsRunning = true;
+            var paginaReceitasSalvar = new ReceitasSalvarPage(receita);
+
+            await paginaReceitasSalvar.ExecuteOnAppearing();
+
+            await Navigation.PushAsync(paginaReceitasSalvar);
+            loadingIndicator.IsVisible = false;
+            loadingIndicator.IsRunning = false;
+
         }
 
         private async void NovoClicked(object sender, EventArgs e)
@@ -37,7 +46,11 @@ namespace LettsCandy.Paginas
             var botao = sender as Button;
             if (sender != null)
             {
-                await Navigation.PushAsync(new ReceitasSalvarPage(new Receita { }));
+                var paginaReceitasSalvar = new ReceitasSalvarPage(new Receita { });
+
+                await paginaReceitasSalvar.ExecuteOnAppearing();
+
+                await Navigation.PushAsync(paginaReceitasSalvar);
             }
 
         }

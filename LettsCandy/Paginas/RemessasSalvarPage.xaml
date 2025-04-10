@@ -123,6 +123,13 @@
                         </StackLayout>
                     </Frame>
 
+                    <ActivityIndicator x:Name="loadingIndicator"
+                         IsVisible="false"
+                         IsRunning="false"
+                         Color="#FF0F10"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"/>
+
                     <Frame
                         Padding="0"
                         BackgroundColor="Transparent"
@@ -402,6 +409,17 @@
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>
+                                    <Button
+                                        x:Name="ProduzirRemessaBtn"
+                                        Margin="0,10,0,10"
+                                        BackgroundColor="#FFFFFF"
+                                        BorderWidth="1"
+                                        TextColor="#FF0F10"
+                                        BorderColor="#FF0F10"
+                                        Clicked="ProduzirRemessaClicked"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="Produzir Remessa" />
                                 </StackLayout>
                             </Frame>
 

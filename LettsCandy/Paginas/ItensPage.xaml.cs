@@ -49,7 +49,7 @@ namespace LettsCandy.Paginas
         {
             var qtdItens = await _itensServico.QuantidadeAsync();
             var itens = await _itensServico.TodosAsync();
-            int qtdTotal = 0;
+            double qtdTotal = 0;
             foreach (var i in itens)
             {
                 qtdTotal += i.Qtd;
