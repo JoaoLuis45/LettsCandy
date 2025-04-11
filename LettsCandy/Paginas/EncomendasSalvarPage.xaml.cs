@@ -231,6 +231,7 @@ namespace LettsCandy.Paginas
             }
         }
 
+
         private async void CarregarEncomendaItems()
         {
             var EncomendaItems = await _encomendaItemsServico.TodosAsync();

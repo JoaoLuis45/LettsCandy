@@ -46,10 +46,9 @@
                         Padding="0"
                         CornerRadius="2">
                         <Picker
-                            x:Name="ProdutosPicker"
+                            x:Name="ClientesPicker"
                             Title=""
                             BackgroundColor="White"
-                            SelectedIndexChanged="ClientesPicker_SelectedIndexChanged"
                             SelectedItem="{Binding Cliente}"
                             TextColor="Black">
                             <Picker.ItemDisplayBinding>
