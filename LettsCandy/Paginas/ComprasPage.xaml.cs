@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MauiLib.Core.Constantes;
 using MauiLib.Core.Models;
 using MauiLib.Core.Servicos;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace LettsCandy.Paginas
 {
@@ -59,7 +60,17 @@ namespace LettsCandy.Paginas
 
         private async Task NavigateToBoughtSalvar(Compra compra)
         {
-            await Navigation.PushAsync(new ComprasSalvarPage(compra));
+            loadingIndicator.IsVisible = true;
+            loadingIndicator.IsRunning = true;
+
+            var paginasComprasSalvar = new ComprasSalvarPage(compra);
+
+            await paginasComprasSalvar.ExecuteOnAppearing();
+
+            await Navigation.PushAsync(paginasComprasSalvar);
+
+            loadingIndicator.IsVisible = false;
+            loadingIndicator.IsRunning = false;
         }
 
         private async void NovoClicked(object sender, EventArgs e)
@@ -67,7 +78,11 @@ namespace LettsCandy.Paginas
             var botao = sender as Button;
             if (sender != null)
             {
-                await Navigation.PushAsync(new ComprasSalvarPage(new Compra {  }));
+                var paginasComprasSalvar = new ComprasSalvarPage(new Compra { });
+
+                await paginasComprasSalvar.ExecuteOnAppearing();
+
+                await Navigation.PushAsync(paginasComprasSalvar);
             }
 
         }

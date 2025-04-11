@@ -10,6 +10,7 @@ namespace LettsCandy.Paginas
         DatabaseServicos<Produto> _produtoServico;
         DatabaseServicos<Item> _itensServico;
         DatabaseServicos<Receita> _receitasServico;
+        DatabaseServicos<Cliente> _clientesServico;
 
         public MainPage()
         {
@@ -17,6 +18,7 @@ namespace LettsCandy.Paginas
             _produtoServico = new DatabaseServicos<Produto>(Db.DB_PATH);
             _itensServico = new DatabaseServicos<Item>(Db.DB_PATH);
             _receitasServico = new DatabaseServicos<Receita>(Db.DB_PATH);
+            _clientesServico = new DatabaseServicos<Cliente>(Db.DB_PATH);
 
         }
 
@@ -52,6 +54,17 @@ namespace LettsCandy.Paginas
             }
             return false;
         }
+        private async Task<bool> VerificaQtdClientes()
+        {
+            var qtdClientes = await _clientesServico.QuantidadeAsync();
+            if (qtdClientes == 0)
+            {
+                await DisplayAlert("Informação", "Não Existem clientes cadastrados. Cadastre para poder acessar a tela.", "Ok");
+                return true;
+            }
+            return false;
+        }
+
 
         private async void NavigateToProduct(object sender, TappedEventArgs e)
         {
@@ -75,6 +88,12 @@ namespace LettsCandy.Paginas
             if (await VerificaQtdProdutos()) return;
             if (await VerificaQtdItems()) return;
             await Navigation.PushAsync(new ReceitasPage());
+        }
+        private async void NavigateToOrders(object sender, TappedEventArgs e)
+        {
+            if (await VerificaQtdProdutos()) return;
+            if (await VerificaQtdClientes()) return;
+            await Navigation.PushAsync(new EncomendasPage());
         }
         private async void NavigateToBoughts(object sender, TappedEventArgs e)
         {

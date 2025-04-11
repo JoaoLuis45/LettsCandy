@@ -30,6 +30,11 @@ namespace LettsCandy.Paginas
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+           
+        }
+
+        public async Task ExecuteOnAppearing()
+        {
             CarregarCompraItems();
             FinalizarCompraBtn.IsVisible = Compra.Id != 0;
         }
@@ -100,7 +105,7 @@ namespace LettsCandy.Paginas
                 }
             }
 
-            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja excluir esta compra?", "Sim", "Não");
+            bool confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja finalizar esta compra?", "Sim", "Não");
             if (!confirm)
             {
                 return;

@@ -119,18 +119,18 @@
                         <Image
                             Aspect="AspectFit"
                             HeightRequest="80"
-                            SemanticProperties.Description="Produtos"
+                            SemanticProperties.Description="Encomendas"
                             Source="novopedido.png" />
                         <Label
                             Margin="0,10,0,0"
                             FontAttributes="Bold"
                             FontSize="Medium"
                             HorizontalOptions="Center"
-                            Text="Encomenda"
+                            Text="Encomendas"
                             TextColor="Black" />
                     </VerticalStackLayout>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NavigateToProduct" />
+                        <TapGestureRecognizer Tapped="NavigateToOrders" />
                     </Frame.GestureRecognizers>
                 </Frame>
                 <Frame

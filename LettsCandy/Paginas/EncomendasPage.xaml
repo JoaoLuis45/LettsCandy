@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="LettsCandy.Paginas.ComprasPage"
+    x:Class="LettsCandy.Paginas.EncomendasPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:paginas="clr-namespace:LettsCandy.Paginas"
-    Title="Compras">
+    Title="Encomendas">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="FrameCardStyle" TargetType="Frame">
@@ -26,14 +26,14 @@
                 <Image
                     Aspect="AspectFit"
                     HeightRequest="150"
-                    SemanticProperties.Description="compras"
-                    Source="compras.png" />
+                    SemanticProperties.Description="encomendas"
+                    Source="boxes.png" />
                 <Button
                     BackgroundColor="#FF0F10"
                     Clicked="NovoClicked"
                     FontAttributes="Bold"
                     HorizontalOptions="FillAndExpand"
-                    Text="Nova Compra" />
+                    Text="Nova Encomenda" />
 
                 <Frame
                     BackgroundColor="white"
@@ -44,12 +44,12 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             HorizontalOptions="Center"
-                            Text="Valor total de compras"
+                            Text="Valor total de encomendas"
                             TextColor="#FF0F10"
                             VerticalOptions="Center" />
                         <StackLayout Orientation="Horizontal">
                             <Label
-                                x:Name="LabelValorTotalCompras"
+                                x:Name="LabelValorTotalEncomendas"
                                 FontAttributes="Bold"
                                 FontSize="16"
                                 HorizontalOptions="CenterAndExpand"
@@ -64,7 +64,7 @@
                     FontAttributes="Bold"
                     FontSize="20"
                     HorizontalOptions="Start"
-                    Text="Listagem de compras"
+                    Text="Listagem de encomendas"
                     TextColor="grey" />
 
                 <StackLayout
@@ -75,17 +75,17 @@
                         FontAttributes="Bold"
                         FontSize="12"
                         HorizontalOptions="Start"
-                        Text="Quantidade de Compras:"
+                        Text="Quantidade de Encomendas:"
                         TextColor="grey" />
                     <Label
-                        x:Name="LabelQtdCompras"
+                        x:Name="LabelQtdEncomendas"
                         FontAttributes="Bold"
                         FontSize="12"
                         HorizontalOptions="Start"
                         TextColor="grey" />
                 </StackLayout>
 
-                <CollectionView x:Name="ComprasCollection">
+                <CollectionView x:Name="EncomendasCollection">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Style="{StaticResource FrameCardStyle}">
@@ -118,7 +118,7 @@
                                             FontAttributes="Italic"
                                             FontSize="13"
                                             HorizontalOptions="Start"
-                                            Text="{Binding DataCompra}" />
+                                            Text="{Binding DataInicio}" />
                                     </StackLayout>
                                     <StackLayout
                                         Orientation="Horizontal"
@@ -132,26 +132,32 @@
                                         <Label
                                             FontAttributes="Bold"
                                             FontSize="13"
-                                            Text="{Binding SituacaoCompra}">
+                                            Text="{Binding SituacaoEncomenda}">
                                             <Label.Triggers>
                                                 <DataTrigger
-                                                    Binding="{Binding SituacaoCompra}"
+                                                    Binding="{Binding SituacaoEncomenda}"
                                                     TargetType="Label"
-                                                    Value="2">
+                                                    Value="1">
                                                     <Setter Property="TextColor" Value="#FF0F10" />
                                                 </DataTrigger>
                                                 <DataTrigger
-                                                    Binding="{Binding SituacaoCompra}"
+                                                    Binding="{Binding SituacaoEncomenda}"
                                                     TargetType="Label"
-                                                    Value="1">
+                                                    Value="3">
                                                     <Setter Property="TextColor" Value="LimeGreen" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding SituacaoEncomenda}"
+                                                    TargetType="Label"
+                                                    Value="2">
+                                                    <Setter Property="TextColor" Value="Goldenrod" />
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
                                     </StackLayout>
                                 </StackLayout>
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:ComprasPage}}, Path=NavigateToComprasSalvarCommand}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:EncomendasPage}}, Path=NavigateToEncomendasSalvarCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
                             </Frame>
                         </DataTemplate>

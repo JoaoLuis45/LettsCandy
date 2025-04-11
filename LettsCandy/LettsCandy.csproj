@@ -68,6 +68,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Paginas\EncomendasPage.xaml.cs">
+	    <DependentUpon>EncomendasPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Paginas\EncomendasSalvarPage.xaml.cs">
+	    <DependentUpon>EncomendasSalvarPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Paginas\RemessasPage.xaml.cs">
 	    <DependentUpon>RemessasPage.xaml</DependentUpon>
 	  </Compile>
@@ -113,6 +119,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Paginas\EncomendasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Paginas\EncomendasSalvarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Paginas\RemessasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
