@@ -40,7 +40,7 @@ namespace LettsCandy.Paginas
             CarregarEncomendaItems();
             if (Encomenda.Id == 0)
             {
-                ClientesPicker.ItemsSource = await _produtosServico.TodosAsync();
+                ClientesPicker.ItemsSource = await _clienteServico.TodosAsync();
             }
             else
             {
@@ -57,6 +57,9 @@ namespace LettsCandy.Paginas
                     break;
                 case SituacaoEncomenda.Reservada:
                     StatusBtn.Text = "Finalizar Encomenda";
+                    break;
+                case SituacaoEncomenda.Finalizada:
+                    StatusBtn.IsVisible = false;
                     break;
             }
         }
@@ -82,6 +85,7 @@ namespace LettsCandy.Paginas
             }
 
             Encomenda.Descricao = DescricaoEntry.Text;
+            Encomenda.ClienteId = Encomenda.Cliente.Id;
 
             if (Encomenda.Id == 0)
                 await _encomendasServico.IncluirAsync(Encomenda);
@@ -100,6 +104,12 @@ namespace LettsCandy.Paginas
             if (Encomenda.Id == 0)
             {
                 await DisplayAlert("Erro", "Não é possível excluir uma encomenda que não existe", "Ok");
+                return;
+            }
+
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível excluir uma encomenda já finalizada", "Ok");
                 return;
             }
 
@@ -149,14 +159,26 @@ namespace LettsCandy.Paginas
                     await _encomendasServico.AlterarAsync(Encomenda);
                     break;
                 case SituacaoEncomenda.Reservada:
+                    var EncomendaItems = await _encomendaItemsServico.TodosAsync();
+                    var ProdutosRelacionados = EncomendaItems
+                        .Where(ri => ri.EncomendaId == Encomenda.Id).ToList();
+                    foreach (var EncomendaItem in ProdutosRelacionados)
+                    {
+                        var produto = await _produtosServico.Query().Where(i => i.Id == EncomendaItem.ProdutoId).FirstOrDefaultAsync();
+                        if (produto != null)
+                        {
+                            if(produto.Quantidade < EncomendaItem.QtdProduto)
+                            {
+                                await DisplayAlert("Erro", $"Não é possível finalizar a encomenda pois a quantidade do produto {produto.Nome} é menor do que a quantidade desejada na encomenda!", "Ok");
+                                return;
+                            }
+                        }
+                    }
                     confirm = await DisplayAlert("Confirmação", "Você tem certeza que deseja finalizar esta encomenda?", "Sim", "Não");
                     if (!confirm)
                     {
                         return;
                     }
-                    var EncomendaItems = await _encomendaItemsServico.TodosAsync();
-                    var ProdutosRelacionados = EncomendaItems
-                        .Where(ri => ri.EncomendaId == Encomenda.Id).ToList();
                     foreach (var EncomendaItem in ProdutosRelacionados)
                     {
                         var produto = await _produtosServico.Query().Where(i => i.Id == EncomendaItem.ProdutoId).FirstOrDefaultAsync();
@@ -179,6 +201,12 @@ namespace LettsCandy.Paginas
             if (Encomenda.Id == 0)
             {
                 await DisplayAlert("Informação", "Salve a encomenda primeiro para adicionar produtos.", "Ok");
+                return;
+            }
+
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível adicionar produtos a uma encomenda já finalizada", "Ok");
                 return;
             }
 
@@ -219,6 +247,12 @@ namespace LettsCandy.Paginas
                 return;
             }
 
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível excluir produtos de uma encomenda já finalizada", "Ok");
+                return;
+            }
+
             var botao = sender as Button;
             if (botao != null)
             { 
@@ -237,6 +271,8 @@ namespace LettsCandy.Paginas
             var EncomendaItems = await _encomendaItemsServico.TodosAsync();
             var ProdutosRelacionados = EncomendaItems
                 .Where(ri => ri.EncomendaId == Encomenda.Id).ToList();
+            var valor = 0.0;
+
 
             if (Encomenda.Produtos.Count == 0 && ProdutosRelacionados.Count > 0)
             {
@@ -248,23 +284,25 @@ namespace LettsCandy.Paginas
                     {
                         produtos.Add(produto);
                     }
+
+                    valor += produto.Preco * EncomendaItem.QtdProduto;
                 }
 
                 Encomenda.Produtos = produtos;
-            }
-
-            var valor = 0.0;
-            foreach (var produto in ProdutosRelacionados)
-            {
-                valor += produto.ValorProduto * produto.QtdProduto;
             }
             Encomenda.Valor = valor;
             await _encomendasServico.AlterarAsync(Encomenda);
             ProdutosCollection.ItemsSource = ProdutosRelacionados;
         }
 
-        private void AumentarQtd(object sender, EventArgs e)
+        private async void AumentarQtd(object sender, EventArgs e)
         {
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível aumentar a quantidade de um produto em uma encomenda já finalizada", "Ok");
+                return;
+            }
+
             var botao = sender as Button;
             if (botao != null)
             {
@@ -277,8 +315,13 @@ namespace LettsCandy.Paginas
                 }
             }
         }
-        private void DiminuirQtd(object sender, EventArgs e)
+        private async void DiminuirQtd(object sender, EventArgs e)
         {
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível diminuir a quantidade de um produto em uma encomenda já finalizada", "Ok");
+                return;
+            }
             var botao = sender as Button;
             if (botao != null)
             {
@@ -293,8 +336,13 @@ namespace LettsCandy.Paginas
         }
 
 
-        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        private async void Entry_Unfocused(object sender, FocusEventArgs e)
         {
+            if (Encomenda.SituacaoEncomenda == SituacaoEncomenda.Finalizada)
+            {
+                await DisplayAlert("Erro", "Não é possível editar a quantidade de um produto em uma encomenda já finalizada", "Ok");
+                return;
+            }
             var entry = sender as Entry;
             if (entry != null)
             {
