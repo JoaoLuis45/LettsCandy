@@ -12,6 +12,7 @@ namespace LettsCandy.Paginas
         public Encomenda Encomenda { get; set; }
 
         private DatabaseServicos<Encomenda> _encomendasServico;
+        private DatabaseServicos<Cliente> _clientesServico;
 
         private bool _isBusy;
 
@@ -32,6 +33,7 @@ namespace LettsCandy.Paginas
         {
             InitializeComponent();
             _encomendasServico = new DatabaseServicos<Encomenda>(Db.DB_PATH);
+            _clientesServico = new DatabaseServicos<Cliente>(Db.DB_PATH);
             NavigateToEncomendasSalvarCommand = new Command<Encomenda>(async (encomenda) => await NavigateToOrderSalvar(encomenda));
             RefreshCommand = new Command(async () => await OnRefreshCommand());
             BindingContext = this;
@@ -88,7 +90,12 @@ namespace LettsCandy.Paginas
         }
         private async void CarregarEncomendas()
         {
-            EncomendasCollection.ItemsSource = await _encomendasServico.TodosAsync();
+            var encomendas = await _encomendasServico.TodosAsync();
+            foreach (var encomenda in encomendas)
+            {
+                encomenda.Cliente = await _clientesServico.Query().Where(x => x.Id == encomenda.ClienteId).FirstOrDefaultAsync(); ;
+            }
+            EncomendasCollection.ItemsSource = encomendas;
         }
 
         private async void CarregarTotalizacao()

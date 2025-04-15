@@ -102,6 +102,11 @@
                                             FontSize="Medium"
                                             HorizontalOptions="Start"
                                             Text="{Binding Descricao}" />
+                                        <Label
+                                            FontSize="15"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Cliente.Nome}"
+                                            TextColor="Gray" />
                                         <StackLayout Orientation="Horizontal" Spacing="2">
                                             <Label
                                                 FontAttributes="Bold"

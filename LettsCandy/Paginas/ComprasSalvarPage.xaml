@@ -132,6 +132,25 @@
                                                                 VerticalOptions="Center" />
                                                         </Frame>
                                                     </StackLayout>
+                                                    <Frame
+                                                        Padding="0"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="Transparent"
+                                                        HeightRequest="25"
+                                                        HorizontalOptions="Center"
+                                                        WidthRequest="25">
+                                                        <Button
+                                                            Margin="0,0,0,0"
+                                                            Padding="0"
+                                                            BackgroundColor="#FFFFFF"
+                                                            BorderWidth="1"
+                                                            Clicked="RemoverItemClicked"
+                                                            FontAttributes="Bold"
+                                                            HeightRequest="20"
+                                                            HorizontalOptions="Center"
+                                                            ImageSource="delete.png"
+                                                            TextColor="#FFFFFF" />
+                                                    </Frame>
                                                 </StackLayout>
                                                 <StackLayout
                                                     Margin="10,0,0,0"
@@ -163,25 +182,7 @@
                                                             Unfocused="ValorItemEntry_Unfocused" />
                                                     </Frame>
                                                 </StackLayout>
-                                                <Frame
-                                                    Padding="0"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="Transparent"
-                                                    HeightRequest="25"
-                                                    HorizontalOptions="Center"
-                                                    WidthRequest="25">
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        Padding="0"
-                                                        BackgroundColor="#FFFFFF"
-                                                        BorderWidth="1"
-                                                        Clicked="RemoverItemClicked"
-                                                        FontAttributes="Bold"
-                                                        HeightRequest="20"
-                                                        HorizontalOptions="Center"
-                                                        ImageSource="delete.png"
-                                                        TextColor="#FFFFFF" />
-                                                </Frame>
+
 
                                             </StackLayout>
                                         </Frame>
@@ -221,8 +222,8 @@
                         HorizontalOptions="FillAndExpand"
                         Text="Salvar" />
                     <Button
-                        Margin="0,10,0,0"
                         x:Name="FinalizarCompraBtn"
+                        Margin="0,10,0,0"
                         BackgroundColor="#FF0F10"
                         Clicked="FinalizarCompraClicked"
                         FontAttributes="Bold"

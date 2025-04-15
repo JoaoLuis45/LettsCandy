@@ -78,6 +78,7 @@
                                             Style="{StaticResource FrameCardStyle}">
                                             <StackLayout Padding="10">
                                                 <StackLayout Padding="10" Orientation="Horizontal">
+
                                                     <StackLayout
                                                         Margin="10,0,0,0"
                                                         HorizontalOptions="FillAndExpand"
@@ -148,27 +149,28 @@
                                                                 VerticalOptions="Center" />
                                                         </Frame>
                                                     </StackLayout>
+                                                    <Frame
+                                                        Padding="0"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="Transparent"
+                                                        HeightRequest="25"
+                                                        HorizontalOptions="Center"
+                                                        WidthRequest="25">
+                                                        <Button
+                                                            Margin="0,0,0,0"
+                                                            Padding="0"
+                                                            BackgroundColor="#FFFFFF"
+                                                            BorderWidth="1"
+                                                            Clicked="RemoverProdutoClicked"
+                                                            FontAttributes="Bold"
+                                                            HeightRequest="20"
+                                                            HorizontalOptions="Center"
+                                                            ImageSource="delete.png"
+                                                            TextColor="#FFFFFF" />
+                                                    </Frame>
                                                 </StackLayout>
 
-                                                <Frame
-                                                    Padding="0"
-                                                    BackgroundColor="Transparent"
-                                                    BorderColor="Transparent"
-                                                    HeightRequest="25"
-                                                    HorizontalOptions="Center"
-                                                    WidthRequest="25">
-                                                    <Button
-                                                        Margin="0,0,0,0"
-                                                        Padding="0"
-                                                        BackgroundColor="#FFFFFF"
-                                                        BorderWidth="1"
-                                                        Clicked="RemoverProdutoClicked"
-                                                        FontAttributes="Bold"
-                                                        HeightRequest="20"
-                                                        HorizontalOptions="Center"
-                                                        ImageSource="delete.png"
-                                                        TextColor="#FFFFFF" />
-                                                </Frame>
+
 
                                             </StackLayout>
                                         </Frame>

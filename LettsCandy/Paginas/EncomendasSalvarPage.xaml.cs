@@ -167,7 +167,7 @@ namespace LettsCandy.Paginas
                         var produto = await _produtosServico.Query().Where(i => i.Id == EncomendaItem.ProdutoId).FirstOrDefaultAsync();
                         if (produto != null)
                         {
-                            if(produto.Quantidade < EncomendaItem.QtdProduto)
+                            if (produto.Quantidade < EncomendaItem.QtdProduto)
                             {
                                 await DisplayAlert("Erro", $"Não é possível finalizar a encomenda pois a quantidade do produto {produto.Nome} é menor do que a quantidade desejada na encomenda!", "Ok");
                                 return;
@@ -193,7 +193,7 @@ namespace LettsCandy.Paginas
                     await _encomendasServico.AlterarAsync(Encomenda);
                     break;
             }
-            await Navigation.PopAsync();
+            SalvarClicked(this, EventArgs.Empty);
         }
 
         private async void AdicionarProdutoClicked(object sender, EventArgs e)

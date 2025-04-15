@@ -127,7 +127,7 @@ namespace LettsCandy.Paginas
             var entry = sender as Entry;
             string text = entry.Text;
 
-            if (text.Length == 11)
+           if (text.Length == 11)
             {
                 text = string.Format(CultureInfo.CurrentCulture, "({0}) {1} {2}-{3}",
                     text.Substring(0, 2),
